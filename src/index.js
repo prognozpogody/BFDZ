@@ -1,13 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import { New } from "./Components/New/New";
-import { User } from './pages/User/User';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ProductPage from "./Components/Content/ProductPage";
 
 const router = createBrowserRouter([
   {
@@ -15,22 +11,16 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "new",
-        element: <New />,
+        path: "products",
+        element: <ProductPage />,
       },
     ],
   },
-  {
-    path: '/users/:userId/petr/:id',
-    element: <User />
-  }
 ]);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-   <RouterProvider router={router} />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
-
-
