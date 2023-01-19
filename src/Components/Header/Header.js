@@ -2,6 +2,17 @@ import { Layout, Menu } from "antd";
 
 const { Header } = Layout;
 
+const menuItems = [
+  {
+    key: `products`,
+    label: `Products`,
+  },
+  {
+    key: `users`,
+    label: `Users`,
+  },
+];
+
 const Block = () => {
   return (
     <Layout>
@@ -25,11 +36,8 @@ const Block = () => {
         <Menu
           theme="dark"
           mode="horizontal"
-          defaultSelectedKeys={["2"]}
-          items={new Array(3).fill(null).map((_, index) => ({
-            key: String(index + 1),
-            label: `Страница ${index + 1}`,
-          }))}
+          defaultSelectedKeys={["products"]}
+          items={menuItems}
         />
       </Header>
     </Layout>
