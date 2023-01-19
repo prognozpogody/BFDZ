@@ -1,7 +1,7 @@
 import Header from "./Components/Header/Header";
 import ProductPage from "./Components/Content/ProductPage";
 import Footer from "./Components/Footer/Footer";
-import { FormAuthorization } from "./Components/FormAuthorization/FormAuthorization";
+import  FormAuthorization  from "./Components/FormAuthorization/FormAuthorization";
 import { useEffect, useState } from "react";
 import "./App.css";
 import { useNavigate, Outlet } from "react-router-dom";
@@ -11,9 +11,9 @@ function App() {
   const navigate = useNavigate();
   const [isAuth, setIsAuth] = useState(false);
   const onFinish = async (values) => {
-    const res = await api.authorization(values);
+    const res =  api.authorization(values);
     // проверка
-    const responce = await res.json();
+    const responce =  res.json();
 
     setIsAuth(true);
     localStorage.setItem("token", responce.token);
@@ -35,11 +35,12 @@ function App() {
     <>
       <Header />
       <ProductPage />
-      <Footer />
-      
-      
-        <Outlet />
+      <Outlet />
         {!isAuth && <FormAuthorization onFinish={onFinish} />}
+      <Footer />
+      <div id="modal-root"></div>
+      
+        
       
     </>
   );

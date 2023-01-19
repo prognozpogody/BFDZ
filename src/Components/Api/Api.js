@@ -4,54 +4,81 @@ class Api {
     this.groupId = groupId;
   }
   // Регистрация
-  registration() {}
+  async registration() {}
 
-  // Авторизация
-  authorization(values) {
-    return fetch(`${this.url}signin`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    });
+  async authorization(values) {
+    try {
+      const response = await fetch(`${this.url}signin`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+      if (response.status !== 200) {
+        throw new Error();
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   // Получение всех юзеров
-  getAllUsers(token) {
-    return fetch(`${this.url}${this.groupId}signin`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        authorization: "Bearer" + token,
-      },
-    });
+  async getAllUsers(token) {
+    try {
+      const response = await fetch(`${this.url}${this.groupId}signin`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          authorization: "Bearer" + token,
+        },
+      });
+      if (response.status !== 200) {
+        throw new Error();
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   // получение информации о пользователе по токену в заголовках
-  getMeInfo(token) {
-    return fetch(`${this.url}/v2/${this.groupId}/users/me`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-    });
+  async getMeInfo(token) {
+    try {
+      const response = await fetch(`${this.url}/v2/${this.groupId}/users/me`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      });
+      if (response.status !== 200) {
+        throw new Error();
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   // получение всех товаров
-  getProducts(token) {
-    return fetch(`${this.url}/products`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-    });
+  async getProducts(token) {
+    try {
+      const response = await fetch(`${this.url}/products`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      });
+      if (response.status !== 200) {
+        throw new Error();
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }
 
