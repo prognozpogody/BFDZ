@@ -1,7 +1,8 @@
 import { Input, Form, Button } from "antd";
-import { createPortal } from "react-dom";
 
-function Modal({ onFinish, children }) {
+
+//код самой формы авторизации
+ function FormAuthorization({ onFinish }) {
   return (
     <Form name="basic" onFinish={onFinish} autoComplete="off">
       <Form.Item
@@ -21,24 +22,12 @@ function Modal({ onFinish, children }) {
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
+        <Button type="default" htmlType="submit">
           Submit
         </Button>
       </Form.Item>
-      {children}
     </Form>
   );
 }
 
-const FormAuthorization = function ({ onFinish, children, isOpen = false }) {
-  if (!isOpen) return null;
-
-  return createPortal(
-    <div>
-      <Modal>{children}</Modal>
-    </div>,
-    document.getElementById("modal-root")
-  );
-};
-
-export default FormAuthorization;
+export default FormAuthorization

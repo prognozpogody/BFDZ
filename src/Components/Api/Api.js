@@ -17,8 +17,8 @@ class Api {
         body: JSON.stringify(values),
       });
       if (response.status !== 200) {
-        throw new Error();
-      }
+        throw new Error(`Error! status: ${response.status}`);
+      } else return response.json();
     } catch (error) {
       throw new Error(error);
     }
@@ -36,8 +36,8 @@ class Api {
         },
       });
       if (response.status !== 200) {
-        throw new Error();
-      }
+        throw new Error(`Error! status: ${response.status}`);
+      } else return response.json();
     } catch (error) {
       throw new Error(error);
     }
@@ -55,8 +55,8 @@ class Api {
         },
       });
       if (response.status !== 200) {
-        throw new Error();
-      }
+        throw new Error(`Error! status: ${response.status}`);
+      } else return response.json();
     } catch (error) {
       throw new Error(error);
     }
@@ -74,8 +74,8 @@ class Api {
         },
       });
       if (response.status !== 200) {
-        throw new Error();
-      }
+        throw new Error(`Error! status: ${response.status}`);
+      } else return response.json();
     } catch (error) {
       throw new Error(error);
     }
