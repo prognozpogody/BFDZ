@@ -1,4 +1,4 @@
-class Api {
+class ApiRegistration {
   constructor(groupId) {
     this.url = "https://api.react-learning.ru/";
     this.groupId = groupId;
@@ -82,6 +82,6 @@ class Api {
   }
 }
 
-const api = new Api("9-gr");
+const apiRegistration = new ApiRegistration("9-gr");
 
-export { api };
+export { apiRegistration };

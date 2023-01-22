@@ -5,7 +5,7 @@ import FormAuthorization from "./Components/FormAuthorization/FormAuthorization"
 import { useEffect, useState } from "react";
 import "./App.css";
 import { useNavigate } from "react-router-dom";
-import { api } from "./Components/Api/Api";
+import { apiRegistration } from "./Components/Api/Registration";
 import ModalPortal from "./Components/ModalPortal/ModalPortal";
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
 
   // Получем данные с формы авторизации, кладем в стор токен, чтобы потом по нему отправлять другие запросы
   const onFinish = async (values) => {
-    const res = await api.authorization(values);
+    const res = await apiRegistration.authorization(values);
     setIsAuth(true);
     localStorage.setItem("token", res.token);
   };
@@ -34,12 +34,11 @@ function App() {
       <Header />
       <ProductPage />
       <Footer />
-        {!isAuth && (
-          <ModalPortal isOpen ={true} >
-            <FormAuthorization onFinish={onFinish} />
-          </ModalPortal>
-        )}
-      
+      {!isAuth && (
+        <ModalPortal isOpen={true}>
+          <FormAuthorization onFinish={onFinish} />
+        </ModalPortal>
+      )}
     </>
   );
 }

@@ -1,12 +1,8 @@
-import ReactDOM from 'react-dom'
+import ReactDOM from "react-dom";
 import style from "./modal.module.css";
 
 function ModalContent({ children }) {
-  return (
-    <div>
-      {children}
-    </div>
-  );
+  return <div className={style.modal_content}>{children}</div>;
 }
 
 // Портал для модалки

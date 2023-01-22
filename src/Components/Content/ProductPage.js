@@ -1,4 +1,5 @@
 import { Breadcrumb, Layout } from "antd";
+import  Card  from "./Card";
 const { Content } = Layout;
 
 const BlockContent = () => {
@@ -26,7 +27,7 @@ const BlockContent = () => {
             background: "white",
           }}
         >
-          Content
+          <Card />!!!!
         </div>
       </Content>
     </Layout>

@@ -1,22 +1,23 @@
 import { Input, Form, Button } from "antd";
 
-
 //код самой формы авторизации
- function FormAuthorization({ onFinish }) {
+function FormAuthorization({ onFinish }) {
   return (
     <Form name="basic" onFinish={onFinish} autoComplete="off">
       <Form.Item
-        label="Username"
+        label="Почта"
         name="email"
-        rules={[{ required: true, message: "Please input your username!" }]}
+        rules={[
+          { required: true, message: "Введите адресс электронной почты" },
+        ]}
       >
         <Input />
       </Form.Item>
 
       <Form.Item
-        label="Password"
+        label="Пароль"
         name="password"
-        rules={[{ required: true, message: "Please input your password!" }]}
+        rules={[{ required: true, message: "Введите ваш пароль" }]}
       >
         <Input.Password />
       </Form.Item>
@@ -30,4 +31,4 @@ import { Input, Form, Button } from "antd";
   );
 }
 
-export default FormAuthorization
+export default FormAuthorization;
