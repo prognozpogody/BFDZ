@@ -17,6 +17,7 @@ function App() {
     const res = await apiRegistration.authorization(values);
     setIsAuth(true);
     localStorage.setItem("token", res.token);
+    
   };
 
   useEffect(() => {
@@ -31,14 +32,14 @@ function App() {
 
   return (
     <>
-      <Header />
-      <ProductPage />
-      <Footer />
       {!isAuth && (
         <ModalPortal isOpen={true}>
           <FormAuthorization onFinish={onFinish} />
         </ModalPortal>
       )}
+      <Header />
+      <ProductPage />
+      <Footer />
     </>
   );
 }

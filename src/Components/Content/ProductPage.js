@@ -1,8 +1,23 @@
 import { Breadcrumb, Layout } from "antd";
-import  Card  from "./Card";
+import Card from "./Card";
+import { useEffect, useState } from "react";
+import { apiProducts } from "../Api/Products";
+
 const { Content } = Layout;
 
 const BlockContent = () => {
+ 
+  const [products, setProducts] = useState({ total: 0, products: [] });
+  //Здесь получаем по апи с сервера все продукты
+  useEffect(() => {
+    const cardContent = async (values) => {
+      const res = await apiProducts.getProducts(values);
+      setProducts(res);
+    };
+
+    cardContent();
+  }, []);
+
   return (
     <Layout>
       <Content
@@ -27,7 +42,7 @@ const BlockContent = () => {
             background: "white",
           }}
         >
-          <Card />!!!!
+          <Card products={products} />
         </div>
       </Content>
     </Layout>
