@@ -2,22 +2,21 @@ import Header from "./Components/Header/Header";
 import ProductPage from "./Components/Content/ProductPage";
 import Footer from "./Components/Footer/Footer";
 import FormAuthorization from "./Components/FormAuthorization/FormAuthorization";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./App.css";
-import { useNavigate } from "react-router-dom";
 import { apiRegistration } from "./Components/Api/Registration";
 import ModalPortal from "./Components/ModalPortal/ModalPortal";
+import { UserContext } from "./Components/Context/Context";
 
 function App() {
-  const navigate = useNavigate();
+  // const context = useContext(UserContextProvider);
   const [isAuth, setIsAuth] = useState(false);
-
+  const {setUserTokenHand} = useContext(UserContext);
   // Получем данные с формы авторизации, кладем в стор токен, чтобы потом по нему отправлять другие запросы
   const onFinish = async (values) => {
     const res = await apiRegistration.authorization(values);
     setIsAuth(true);
-    localStorage.setItem("token", res.token);
-    
+    setUserTokenHand(localStorage.setItem("token", res.token));
   };
 
   useEffect(() => {
@@ -28,18 +27,21 @@ function App() {
     if (token) {
       setIsAuth(true);
     }
-  }, [navigate]);
+  }, []);
+
 
   return (
     <>
-      {!isAuth && (
-        <ModalPortal isOpen={true}>
-          <FormAuthorization onFinish={onFinish} />
-        </ModalPortal>
-      )}
-      <Header />
-      <ProductPage />
-      <Footer />
+     
+        {!isAuth && (
+          <ModalPortal isOpen={true}>
+            <FormAuthorization onFinish={onFinish} />
+          </ModalPortal>
+        )}
+        <Header />
+        <ProductPage />
+        <Footer />
+      
     </>
   );
 }

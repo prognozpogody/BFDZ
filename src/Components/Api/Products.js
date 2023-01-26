@@ -5,14 +5,14 @@ class ApiProducts {
   }
 
   // получение всех товаров
-  async getProducts() {
+  async getProducts(userToken) {
     try {
       const response = await fetch(`${this.url}products`, {
         method: "GET",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + userToken,
         },
       });
       if (response.status !== 200) {

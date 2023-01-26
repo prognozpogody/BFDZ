@@ -8,10 +8,11 @@ const { Content } = Layout;
 const BlockContent = () => {
  
   const [products, setProducts] = useState({ total: 0, products: [] });
+ 
   //Здесь получаем по апи с сервера все продукты
   useEffect(() => {
-    const cardContent = async (values) => {
-      const res = await apiProducts.getProducts(values);
+    const cardContent = async (userToken) => {
+      const res = await apiProducts.getProducts(userToken);
       setProducts(res);
     };
 
