@@ -1,23 +1,25 @@
 import { Breadcrumb, Layout } from "antd";
 import Card from "./Card";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { apiProducts } from "../Api/Products";
+import { UserContext } from "../Context/Context";
 
 const { Content } = Layout;
 
 const BlockContent = () => {
- 
+  const {userToken} = useContext(UserContext);
   const [products, setProducts] = useState({ total: 0, products: [] });
  
   //Здесь получаем по апи с сервера все продукты
   useEffect(() => {
-    const cardContent = async (userToken) => {
+    const cardContent = async () => {
       const res = await apiProducts.getProducts(userToken);
       setProducts(res);
+      
     };
 
     cardContent();
-  }, []);
+  }, [userToken]);
 
   return (
     <Layout>
