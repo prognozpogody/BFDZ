@@ -1,4 +1,4 @@
-import { Breadcrumb, Layout } from "antd";
+import { Layout } from "antd";
 import Card from "./Card";
 import { useEffect, useState, useContext } from "react";
 import { apiProducts } from "../Api/Products";
@@ -29,15 +29,7 @@ const BlockContent = () => {
           padding: "0 50px",
         }}
       >
-        <Breadcrumb
-          style={{
-            margin: "16px 0",
-          }}
-        >
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
-        </Breadcrumb>
+      
         <div
           style={{
             padding: 24,

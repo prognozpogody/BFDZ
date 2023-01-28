@@ -1,15 +1,15 @@
 import Header from "./Components/Header/Header";
-import ProductPage from "./Components/Content/ProductPage";
 import Footer from "./Components/Footer/Footer";
 import FormAuthorization from "./Components/FormAuthorization/FormAuthorization";
 import { useContext, useEffect } from "react";
 import "./App.css";
-// import { apiRegistration } from "./Components/Api/Registration";
 import ModalPortal from "./Components/ModalPortal/ModalPortal";
 import { UserContext } from "./Components/Context/Context";
+import { useNavigate, Outlet } from "react-router-dom";
 
 function App() {
   const { onFinish, isAuth, setIsAuth, setUserToken } = useContext(UserContext);
+  const navigate = useNavigate();
 
   // Проверка на наличие токена, обновление токена в контексте
   useEffect(() => {
@@ -18,8 +18,12 @@ function App() {
     if (token) {
       setIsAuth(true);
       setUserToken(token);
+      navigate('ProductPage')
     }
-  });
+  },[navigate]);
+ 
+
+
 
   return (
     <>
@@ -29,8 +33,9 @@ function App() {
         </ModalPortal>
       )}
       <Header />
-      <ProductPage />
+      <Outlet />
       <Footer />
+      
     </>
   );
 }

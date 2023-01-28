@@ -2,14 +2,38 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { UserContextProvider } from "./Components/Context/Context";
+import SignUp from "./Components/pages/SignUp";
+import ProductPage from "./Components/Content/ProductPage";
+import FormAuthorization from "./Components/FormAuthorization/FormAuthorization";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "signup",
+        element: <SignUp />,
+      },
+      {
+        path: "ProductPage",
+        element: <ProductPage />,
+      },
+      {
+        path: "FormAuthorization",
+        element: <FormAuthorization />,
+      },
+    ],
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <UserContextProvider>
-      <App />
+    <RouterProvider router={router} />
     </UserContextProvider>
   </React.StrictMode>
 );
