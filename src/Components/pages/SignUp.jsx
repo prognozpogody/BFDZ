@@ -1,6 +1,6 @@
-
-import { Button, Form, Input, InputNumber } from "antd";
-
+import { Button, Form, Input } from "antd";
+import { UserContext } from "../Context/Context";
+import { useContext } from "react";
 
 const layout = {
   labelCol: {
@@ -24,35 +24,20 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-const onFinish = (values) => {
-  console.log(values);
-};
-
-function SignUp()  {
-  
+function SignUp() {
+  const { onFinishSignUp } = useContext(UserContext);
   return (
     <Form
       {...layout}
       name="nest-messages"
-      onFinish={onFinish}
+      onFinish={onFinishSignUp}
       style={{
         maxWidth: 600,
       }}
       validateMessages={validateMessages}
     >
       <Form.Item
-        name={["user", "name"]}
-        label="Name"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name={["user", "email"]}
+        name="email"
         label="Email"
         rules={[
           {
@@ -62,24 +47,15 @@ function SignUp()  {
       >
         <Input />
       </Form.Item>
-      <Form.Item
-        name={["user", "age"]}
-        label="Age"
-        rules={[
-          {
-            type: "number",
-            min: 0,
-            max: 99,
-          },
-        ]}
-      >
-        <InputNumber />
-      </Form.Item>
-      <Form.Item name={["user", "website"]} label="Website">
+      <Form.Item name="group" label="group">
         <Input />
       </Form.Item>
-      <Form.Item name={["user", "introduction"]} label="Introduction">
-        <Input.TextArea />
+      <Form.Item
+        label="Пароль"
+        name="password"
+        rules={[{ required: true, message: "Введите ваш пароль" }]}
+      >
+        <Input.Password />
       </Form.Item>
       <Form.Item
         wrapperCol={{
@@ -92,6 +68,6 @@ function SignUp()  {
         </Button>
       </Form.Item>
     </Form>
-  )
-};
+  );
+}
 export default SignUp;

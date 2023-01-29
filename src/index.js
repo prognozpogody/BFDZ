@@ -7,6 +7,7 @@ import { UserContextProvider } from "./Components/Context/Context";
 import SignUp from "./Components/pages/SignUp";
 import ProductPage from "./Components/Content/ProductPage";
 import FormAuthorization from "./Components/FormAuthorization/FormAuthorization";
+import UserPage from "./Components/pages/User";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
         path: "FormAuthorization",
         element: <FormAuthorization />,
       },
+      {
+        path: "UserPage",
+        element: <UserPage />,
+      },
     ],
   },
 ]);
@@ -33,7 +38,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <UserContextProvider>
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </UserContextProvider>
   </React.StrictMode>
 );

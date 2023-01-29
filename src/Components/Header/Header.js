@@ -1,19 +1,28 @@
 import { Layout, Menu } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const { Header } = Layout;
 
 const menuItems = [
   {
-    key: `products`,
-    label: `Products`,
+    key: `ProductPage`,
+    label: `ProductPage`,
   },
   {
-    key: `users`,
-    label: `Users`,
+    key: `UserPage`,
+    label: `UserPage`,
   },
 ];
 
 const Block = () => {
+
+
+  const navigate = useNavigate();
+  const handleRoute = (event) => {
+    navigate(event.key);
+  };
+
+
   return (
     <Layout>
       <Header
@@ -38,6 +47,7 @@ const Block = () => {
           mode="horizontal"
           defaultSelectedKeys={["products"]}
           items={menuItems}
+          onClick={handleRoute}
         />
       </Header>
     </Layout>

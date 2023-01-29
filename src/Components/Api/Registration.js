@@ -4,7 +4,26 @@ class ApiRegistration {
     this.groupId = groupId;
   }
   // Регистрация
-  async registration() {}
+
+  async registration(values) {
+    try {
+      const response = await fetch(`${this.url}signup`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+      if (response.status !== 200 && response.status !== 201) {
+        throw console.log(
+          `Ошибка HTTP: ${response.status} ${response.message}`
+        );
+      }
+    } catch (error) {
+      throw alert(`Ошибка HTTP: ${error}`);
+    }
+  }
 
   async authorization(values) {
     try {
@@ -17,11 +36,12 @@ class ApiRegistration {
         body: JSON.stringify(values),
       });
       if (response.status !== 200) {
-        throw  console.log(`Ошибка HTTP: ${response.status} ${response.message}`); 
-        
+        throw console.log(
+          `Ошибка HTTP: ${response.status} ${response.message}`
+        );
       } else return response.json();
     } catch (error) {
-      throw alert (`Ошибка HTTP: ${error}`)
+      throw alert(`Ошибка HTTP: ${error}`);
     }
   }
 

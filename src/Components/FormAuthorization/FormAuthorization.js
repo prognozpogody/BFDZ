@@ -1,12 +1,9 @@
 import { Input, Form, Button } from "antd";
 
-
 //код самой формы авторизации
-function FormAuthorization({ onFinish }) {
- 
-
+function FormAuthorization({ onFinishSignIn }) {
   return (
-    <Form name="basic" onFinish={onFinish} autoComplete="off">
+    <Form name="basic" onFinish={onFinishSignIn} autoComplete="off">
       <Form.Item
         label="Почта"
         name="email"

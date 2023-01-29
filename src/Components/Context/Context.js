@@ -5,11 +5,17 @@ import { Navigate } from "react-router-dom";
 export const UserContext = createContext();
 
 export function UserContextProvider({ children }) {
+  //Состояние авторизации
   const [isAuth, setIsAuth] = useState(false);
+   //Состояние токена
   const [userToken, setUserToken] = useState();
+   //Переключатель открытия модалки авторизации
   const [modalOpen, setModalOpen] = useState(false);
+  //Хрантель данных о юзере
+  const [user, setUser] = useState();
 
-  const onFinish = async (values) => {
+  // Результат обработки формы авторизации
+  const onFinishSignIn = async (values) => {
     const res = await apiRegistration.authorization(values);
     setIsAuth(true);
     localStorage.setItem("token", res.token);
@@ -18,14 +24,31 @@ export function UserContextProvider({ children }) {
     return <Navigate to="/" />;
   };
 
+  // Результат обработки формы регистрации
+  const onFinishSignUp = async (values) => {
+    await apiRegistration.registration(values);
+    const res = await apiRegistration.authorization({
+      email: values.email,
+      password: values.password,
+    });
+    localStorage.setItem("token", res.token);
+    setIsAuth(true);
+    setUserToken(res.token);
+    return <Navigate to="/" />;
+  };
+
   const userData = {
     isAuth,
     setIsAuth,
     userToken,
-    onFinish,
+    onFinishSignIn,
     setUserToken,
     modalOpen,
     setModalOpen,
+    onFinishSignUp,
+    user,
+    setUser,
+
   };
 
   return (

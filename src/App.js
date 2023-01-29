@@ -7,14 +7,21 @@ import ModalPortal from "./Components/ModalPortal/ModalPortal";
 import { UserContext } from "./Components/Context/Context";
 import { useNavigate, Outlet, useLocation } from "react-router-dom";
 import { Button } from "antd";
+import { apiUser } from "./Components/Api/User";
 
 function App() {
-  const { onFinish, setIsAuth, setUserToken, modalOpen, setModalOpen, isAuth } = useContext(UserContext);
+  const {
+    onFinishSignIn,
+    setIsAuth,
+    setUserToken,
+    modalOpen,
+    setModalOpen,
+    isAuth,
+    setUser
+  } = useContext(UserContext);
   const navigate = useNavigate();
   const location = useLocation();
-  
-console.log(location.pathname);
-  // Проверка на наличие токена, обновление токена в контексте, вызов модалки 
+  // Проверка на наличие токена, обновление токена в контексте, вызов модалки
   // авторизации, если нет токена
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -22,24 +29,34 @@ console.log(location.pathname);
     if (token) {
       setIsAuth(true);
       setUserToken(token);
-      navigate("ProductPage");
+      apiUser.getInfoUser().then((user) => {
+        setUser(user)
+        console.log(user);
+    });
     } else if (!isAuth && location.pathname !== "/signup") {
-    
-      setModalOpen(true)
+      setModalOpen(true);
     }
-  }, [navigate]);
+  }, [
+    setIsAuth,
+    setUserToken,
+    modalOpen,
+    setModalOpen,
+    isAuth,
+    location.pathname,
+    navigate,
+    setUser
+  ]);
 
   return (
     <>
       <ModalPortal isOpen={modalOpen}>
-        <FormAuthorization onFinish={onFinish} />
+        <FormAuthorization onFinish={onFinishSignIn} />
         <Button
           type="primary"
           htmlType="button"
           onClick={() => {
             setModalOpen(false);
             navigate("signup");
-            
           }}
         >
           Зарегестрироваться
