@@ -17,10 +17,11 @@ class ApiRegistration {
         body: JSON.stringify(values),
       });
       if (response.status !== 200) {
-        throw new Error(`Error! status: ${response.status}`);
+        throw  console.log(`Ошибка HTTP: ${response.status} ${response.message}`); 
+        
       } else return response.json();
     } catch (error) {
-      throw new Error(error);
+      throw alert (`Ошибка HTTP: ${error}`)
     }
   }
 
