@@ -17,7 +17,7 @@ function App() {
     modalOpen,
     setModalOpen,
     isAuth,
-    setUser
+    setUser,
   } = useContext(UserContext);
   const navigate = useNavigate();
   const location = useLocation();
@@ -30,9 +30,9 @@ function App() {
       setIsAuth(true);
       setUserToken(token);
       apiUser.getInfoUser().then((user) => {
-        setUser(user)
+        setUser(user);
         console.log(user);
-    });
+      });
     } else if (!isAuth && location.pathname !== "/signup") {
       setModalOpen(true);
     }
@@ -44,7 +44,7 @@ function App() {
     isAuth,
     location.pathname,
     navigate,
-    setUser
+    setUser,
   ]);
 
   return (

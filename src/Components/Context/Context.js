@@ -7,9 +7,9 @@ export const UserContext = createContext();
 export function UserContextProvider({ children }) {
   //Состояние авторизации
   const [isAuth, setIsAuth] = useState(false);
-   //Состояние токена
+  //Состояние токена
   const [userToken, setUserToken] = useState();
-   //Переключатель открытия модалки авторизации
+  //Переключатель открытия модалки авторизации
   const [modalOpen, setModalOpen] = useState(false);
   //Хрантель данных о юзере
   const [user, setUser] = useState();
@@ -48,7 +48,6 @@ export function UserContextProvider({ children }) {
     onFinishSignUp,
     user,
     setUser,
-
   };
 
   return (

@@ -15,13 +15,10 @@ const menuItems = [
 ];
 
 const Block = () => {
-
-
   const navigate = useNavigate();
   const handleRoute = (event) => {
     navigate(event.key);
   };
-
 
   return (
     <Layout>

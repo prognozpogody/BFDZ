@@ -3,9 +3,8 @@ class ApiUser {
     this.url = "https://api.react-learning.ru/";
     this.groupId = groupId;
   }
-  
+
   async getInfoUser() {
-    
     try {
       const response = await fetch(`${this.url}users/me`, {
         method: "GET",
@@ -14,7 +13,6 @@ class ApiUser {
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
-        
       });
       if (response.status !== 200) {
         throw new Error(`Error! status: ${response.status}`);
