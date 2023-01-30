@@ -5,8 +5,7 @@ import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { UserContextProvider } from "./Components/Context/Context";
 import SignUp from "./Components/pages/SignUp";
-import ProductPage from "./Components/Content/ProductPage";
-import FormAuthorization from "./Components/FormAuthorization/FormAuthorization";
+import ProductPage from "./Components/pages/Product";
 import UserPage from "./Components/pages/User";
 
 const router = createBrowserRouter([
@@ -21,10 +20,6 @@ const router = createBrowserRouter([
       {
         path: "ProductPage",
         element: <ProductPage />,
-      },
-      {
-        path: "FormAuthorization",
-        element: <FormAuthorization />,
       },
       {
         path: "UserPage",
