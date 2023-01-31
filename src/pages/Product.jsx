@@ -1,5 +1,5 @@
 import { Layout } from "antd";
-import Card from "../Content/Card";
+import Card from "../Components/Content/Card";
 import { useEffect, useState, useContext } from "react";
 import { apiProducts } from "../Api/Products";
 import { UserContext } from "../Context/Context";

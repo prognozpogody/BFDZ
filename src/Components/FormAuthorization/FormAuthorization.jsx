@@ -1,9 +1,25 @@
 import { Input, Form, Button } from "antd";
+import { apiRegistration } from "../../Api/Registration";
+import { Navigate } from "react-router-dom";
+import { UserContext } from "../../Context/Context";
+import { useContext } from "react";
 
 //код самой формы авторизации
-function FormAuthorization({ onFinish }) {
+function FormAuthorization() {
+  const { setIsAuth, setUserToken, setModalOpen } = useContext(UserContext);
+
+    // Результат обработки формы авторизации
+    const onFinishSignIn = async (values) => {
+      const res = await apiRegistration.authorization(values);
+      setIsAuth(true);
+      localStorage.setItem("token", res.token);
+      setUserToken(res.token);
+      setModalOpen(false);
+      return <Navigate to="/" />;
+    };
+
   return (
-    <Form name="basic" onFinish={onFinish} autoComplete="off">
+    <Form name="basic" onFinish={onFinishSignIn} autoComplete="off">
       <Form.Item
         label="Почта"
         name="email"

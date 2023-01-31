@@ -5,12 +5,12 @@ const { Header } = Layout;
 
 const menuItems = [
   {
-    key: `ProductPage`,
-    label: `ProductPage`,
+    key: `Product`,
+    label: `Product`,
   },
   {
-    key: `UserPage`,
-    label: `UserPage`,
+    key: `User`,
+    label: `User`,
   },
 ];
 
