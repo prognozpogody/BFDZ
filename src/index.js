@@ -3,11 +3,10 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { UserContextProvider } from "./Components/Context/Context";
-import SignUp from "./Components/pages/SignUp";
-import ProductPage from "./Components/Content/ProductPage";
-import FormAuthorization from "./Components/FormAuthorization/FormAuthorization";
-import UserPage from "./Components/pages/User";
+import { UserContextProvider } from "./Context/Context";
+import SignUp from "./pages/SignUp";
+import ProductPage from "./pages/Product";
+import UserPage from "./pages/User";
 
 const router = createBrowserRouter([
   {
@@ -19,15 +18,11 @@ const router = createBrowserRouter([
         element: <SignUp />,
       },
       {
-        path: "ProductPage",
+        path: "Product",
         element: <ProductPage />,
       },
       {
-        path: "FormAuthorization",
-        element: <FormAuthorization />,
-      },
-      {
-        path: "UserPage",
+        path: "User",
         element: <UserPage />,
       },
     ],

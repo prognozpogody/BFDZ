@@ -5,7 +5,6 @@ import { UserContext } from "../Context/Context";
 
 function UserPage() {
   const { user } = useContext(UserContext);
-  console.log(user);
   return (
     <Descriptions title="User Info">
       <Descriptions.Item label="UserName">{user.name}</Descriptions.Item>

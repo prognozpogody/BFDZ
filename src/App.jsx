@@ -4,10 +4,10 @@ import FormAuthorization from "./Components/FormAuthorization/FormAuthorization"
 import { useContext, useEffect } from "react";
 import "./App.css";
 import ModalPortal from "./Components/ModalPortal/ModalPortal";
-import { UserContext } from "./Components/Context/Context";
+import { UserContext } from "./Context/Context";
 import { useNavigate, Outlet, useLocation } from "react-router-dom";
 import { Button } from "antd";
-import { apiUser } from "./Components/Api/User";
+import { apiUser } from "./Api/User";
 
 function App() {
   const {
@@ -17,7 +17,7 @@ function App() {
     modalOpen,
     setModalOpen,
     isAuth,
-    setUser
+    setUser,
   } = useContext(UserContext);
   const navigate = useNavigate();
   const location = useLocation();
@@ -30,9 +30,8 @@ function App() {
       setIsAuth(true);
       setUserToken(token);
       apiUser.getInfoUser().then((user) => {
-        setUser(user)
-        console.log(user);
-    });
+        setUser(user);
+      });
     } else if (!isAuth && location.pathname !== "/signup") {
       setModalOpen(true);
     }
@@ -44,7 +43,7 @@ function App() {
     isAuth,
     location.pathname,
     navigate,
-    setUser
+    setUser,
   ]);
 
   return (
