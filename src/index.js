@@ -7,7 +7,9 @@ import { UserContextProvider } from "./Context/Context";
 import SignUp from "./pages/SignUp";
 import ProductPage from "./pages/Product";
 import UserPage from "./pages/User";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
     path: "/",
@@ -33,7 +35,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <UserContextProvider>
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </UserContextProvider>
   </React.StrictMode>
 );
