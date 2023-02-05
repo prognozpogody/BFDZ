@@ -7,9 +7,8 @@ import ModalPortal from "./Components/ModalPortal/ModalPortal";
 import { UserContext } from "./Context/Context";
 import { useNavigate, Outlet, useLocation } from "react-router-dom";
 import { Button } from "antd";
-import { apiUser } from "./Api/User";
-
-
+import { UserApi } from "./Api/User";
+import { useQuery } from "@tanstack/react-query";
 
 function App() {
   const {
@@ -21,8 +20,15 @@ function App() {
     isAuth,
     setUser,
   } = useContext(UserContext);
+
+  const { data } = useQuery({
+    queryKey: ["CurrentUser"],
+    queryFn: () => UserApi.getInfoUser(),
+  });
+
   const navigate = useNavigate();
   const location = useLocation();
+
   // Проверка на наличие токена, обновление токена в контексте, вызов модалки
   // авторизации, если нет токена
   useEffect(() => {
@@ -31,9 +37,7 @@ function App() {
     if (token) {
       setIsAuth(true);
       setUserToken(token);
-      apiUser.getInfoUser().then((user) => {
-        setUser(user);
-      });
+      setUser(data);
     } else if (!isAuth && location.pathname !== "/signup") {
       setModalOpen(true);
     }
@@ -46,6 +50,7 @@ function App() {
     location.pathname,
     navigate,
     setUser,
+    data,
   ]);
 
   return (

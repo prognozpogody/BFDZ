@@ -34,7 +34,7 @@ function SignUp() {
     await apiRegistration.registration(values);
     const res = await apiRegistration.authorization({
       email: values.email,
-      password: values.password,
+      password: values.password, 
     });
     localStorage.setItem("token", res.token);
     setIsAuth(true);
