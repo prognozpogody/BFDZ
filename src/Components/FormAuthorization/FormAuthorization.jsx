@@ -1,5 +1,5 @@
 import { Input, Form, Button } from "antd";
-import { apiRegistration } from "../../Api/Registration";
+import { RegistrationApi } from "../../Api/Registration";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../../Context/Context";
 import { useContext } from "react";
@@ -8,14 +8,14 @@ import { useContext } from "react";
 function FormAuthorization() {
   const { setIsAuth, setUserToken, setModalOpen } = useContext(UserContext);
 
-    // Результат обработки формы авторизации
+    // Результат обработки формы авторизации, результат обновляет данные в контексте
     const onFinishSignIn = async (values) => {
-      const res = await apiRegistration.authorization(values);
+      const res = await RegistrationApi.authorization(values);
       setIsAuth(true);
       localStorage.setItem("token", res.token);
       setUserToken(res.token);
       setModalOpen(false);
-      return <Navigate to="/" />;
+      return <Navigate to="Product" />;
     };
 
   return (

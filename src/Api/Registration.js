@@ -1,108 +1,21 @@
-class ApiRegistration {
-  constructor(groupId) {
-    this.url = "https://api.react-learning.ru/";
-    this.groupId = groupId;
-  }
+import axios from "axios";
+
+const API_URL = "https://api.react-learning.ru/";
+axios.defaults.baseURL = API_URL;
+
+export const RegistrationApi = {
   // Регистрация
-
   async registration(values) {
-    try {
-      const response = await fetch(`${this.url}signup`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
-      if (response.status !== 200 && response.status !== 201) {
-        throw console.log(
-          `Ошибка HTTP: ${response.status} ${response.message}`
-        );
-      }
-    } catch (error) {
-      throw alert(`Ошибка HTTP: ${error}`);
-    }
-  }
-
+    return await axios.post("signup", values).then((response) => {
+      return response.data;
+    });
+  },
+  // Авторизация
   async authorization(values) {
-    try {
-      const response = await fetch(`${this.url}signin`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
-      if (response.status !== 200) {
-        throw console.log(
-          `Ошибка HTTP: ${response.status} ${response.message}`
-        );
-      } else return response.json();
-    } catch (error) {
-      throw alert(`Ошибка HTTP: ${error}`);
-    }
-  }
+    return await axios.post("signin", values).then((response) => {
+      return response.data;
+    });
+  },
 
-  // Получение всех юзеров
-  async getAllUsers(token) {
-    try {
-      const response = await fetch(`${this.url}${this.groupId}signin`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          authorization: "Bearer" + token,
-        },
-      });
-      if (response.status !== 200) {
-        throw new Error(`Error! status: ${response.status}`);
-      } else return response.json();
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
-
-  // получение информации о пользователе по токену в заголовках
-  async getMeInfo(token) {
-    try {
-      const response = await fetch(`${this.url}/v2/${this.groupId}/users/me`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-      });
-      if (response.status !== 200) {
-        throw new Error(`Error! status: ${response.status}`);
-      } else return response.json();
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
-
-  // получение всех товаров
-  async getProducts(token) {
-    try {
-      const response = await fetch(`${this.url}/products`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-      });
-      if (response.status !== 200) {
-        throw new Error(`Error! status: ${response.status}`);
-      } else return response.json();
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
-}
-
-const apiRegistration = new ApiRegistration("9-gr");
-
-export { apiRegistration };
+ 
+};

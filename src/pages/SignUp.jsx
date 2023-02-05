@@ -1,6 +1,6 @@
 import { Button, Form, Input } from "antd";
-import { apiRegistration } from "../Api/Registration";
-import { Navigate } from "react-router-dom";
+import { RegistrationApi } from "../Api/Registration";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/Context";
 import { useContext } from "react";
 
@@ -28,18 +28,19 @@ const validateMessages = {
 
 function SignUp() {
   const { setIsAuth, setUserToken } = useContext(UserContext);
-
-  // Результат обработки формы регистрации
+  const navigate = useNavigate();
+  // Результат обработки формы регистрации, происходит регистрация и
+  // авторизация, после редирект на продукты
   const onFinishSignUp = async (values) => {
-    await apiRegistration.registration(values);
-    const res = await apiRegistration.authorization({
+    await RegistrationApi.registration(values);
+    const res = await RegistrationApi.authorization({
       email: values.email,
-      password: values.password, 
+      password: values.password,
     });
     localStorage.setItem("token", res.token);
     setIsAuth(true);
     setUserToken(res.token);
-    return <Navigate to="Product" />;
+    navigate("/Product") 
   };
 
   return (

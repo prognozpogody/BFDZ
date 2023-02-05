@@ -5,7 +5,7 @@ import { useContext, useEffect } from "react";
 import "./App.css";
 import ModalPortal from "./Components/ModalPortal/ModalPortal";
 import { UserContext } from "./Context/Context";
-import { useNavigate, Outlet, useLocation } from "react-router-dom";
+import { useNavigate, Outlet, useLocation} from "react-router-dom";
 import { Button } from "antd";
 import { UserApi } from "./Api/User";
 import { useQuery } from "@tanstack/react-query";
@@ -28,12 +28,12 @@ function App() {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const token = localStorage.getItem("token");
 
   // Проверка на наличие токена, обновление токена в контексте, вызов модалки
   // авторизации, если нет токена
+  // TODO Сделать навигейт с главной страницы если есть токен и он норм
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
     if (token) {
       setIsAuth(true);
       setUserToken(token);
@@ -41,17 +41,11 @@ function App() {
     } else if (!isAuth && location.pathname !== "/signup") {
       setModalOpen(true);
     }
-  }, [
-    setIsAuth,
-    setUserToken,
-    modalOpen,
-    setModalOpen,
-    isAuth,
-    location.pathname,
-    navigate,
-    setUser,
-    data,
-  ]);
+  },);
+
+  // if (isAuth ===true ) {
+  //   return <Navigate to="Product" />
+  // }
 
   return (
     <>

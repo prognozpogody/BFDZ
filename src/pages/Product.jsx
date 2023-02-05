@@ -1,7 +1,7 @@
 import { Layout } from "antd";
 import Card from "../Components/Content/Card";
 import { useEffect, useState, useContext } from "react";
-import { apiProducts } from "../Api/Products";
+import { ProductsApi } from "../Api/Products";
 import { UserContext } from "../Context/Context";
 
 const { Content } = Layout;
@@ -13,7 +13,7 @@ const ProductPage = () => {
   //Здесь получаем по апи с сервера все продукты
   useEffect(() => {
     const cardContent = async () => {
-      const res = await apiProducts.getProducts(userToken);
+      const res = await ProductsApi.getProducts(userToken);
       setProducts(res);
     };
 
