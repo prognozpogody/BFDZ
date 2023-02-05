@@ -3,6 +3,7 @@ import { RegistrationApi } from "../Api/Registration";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/Context";
 import { useContext } from "react";
+import { useMutation } from "@tanstack/react-query";
 
 const layout = {
   labelCol: {
@@ -27,27 +28,38 @@ const validateMessages = {
 /* eslint-enable no-template-curly-in-string */
 
 function SignUp() {
-  const { setIsAuth, setUserToken } = useContext(UserContext);
+  const { setIsAuth, setUserToken, setUser } = useContext(UserContext);
   const navigate = useNavigate();
   // Результат обработки формы регистрации, происходит регистрация и
   // авторизация, после редирект на продукты
-  const onFinishSignUp = async (values) => {
-    await RegistrationApi.registration(values);
-    const res = await RegistrationApi.authorization({
+  const { mutateAsync: mutateRegistration } = useMutation({
+    mutationFn: (values) => RegistrationApi.registration(values),
+  });
+
+  const { mutateAsync: mutateAuthorization } = useMutation({
+    mutationFn: (values) => RegistrationApi.authorization(values),
+  });
+// TODO если человек решит зарегестрироваться с уже существующим аккаунтом или еще чего
+// тогда первый запрос будет error
+// тебе надо responce первого запроса и оттуда values передать в авторизейшн
+  const onFinish = async (values) => {
+    await mutateRegistration(values);
+    const res = await mutateAuthorization({
       email: values.email,
       password: values.password,
     });
     localStorage.setItem("token", res.token);
     setIsAuth(true);
     setUserToken(res.token);
-    navigate("/Product") 
+    setUser(res);
+    navigate("/Product");
   };
 
   return (
     <Form
       {...layout}
       name="nest-messages"
-      onFinish={onFinishSignUp}
+      onFinish={onFinish}
       style={{
         maxWidth: 600,
       }}

@@ -1,6 +1,6 @@
 import axios from "axios";
+import { API_URL, TOKEN } from "../constants/constants";
 
-const API_URL = "https://api.react-learning.ru/";
 axios.defaults.baseURL = API_URL;
 
 export const UserApi = {
@@ -9,7 +9,7 @@ export const UserApi = {
     return await axios
       .get("users/me", {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + TOKEN,
         },
       })
       .then((response) => {

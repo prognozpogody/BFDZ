@@ -1,22 +1,23 @@
 import { Input, Form, Button } from "antd";
 import { RegistrationApi } from "../../Api/Registration";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/Context";
 import { useContext } from "react";
 
 //код самой формы авторизации
 function FormAuthorization() {
   const { setIsAuth, setUserToken, setModalOpen } = useContext(UserContext);
+  const navigate = useNavigate();
 
-    // Результат обработки формы авторизации, результат обновляет данные в контексте
-    const onFinishSignIn = async (values) => {
-      const res = await RegistrationApi.authorization(values);
-      setIsAuth(true);
-      localStorage.setItem("token", res.token);
-      setUserToken(res.token);
-      setModalOpen(false);
-      return <Navigate to="Product" />;
-    };
+  // Результат обработки формы авторизации, результат обновляет данные в контексте
+  const onFinishSignIn = async (values) => {
+    const res = await RegistrationApi.authorization(values);
+    console.log(res.token);
+    setIsAuth(true);
+    setUserToken(res.token);
+    setModalOpen(false);
+    navigate("/Product");
+  };
 
   return (
     <Form name="basic" onFinish={onFinishSignIn} autoComplete="off">

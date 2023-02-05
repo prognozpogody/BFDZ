@@ -1,6 +1,6 @@
 import axios from "axios";
+import { API_URL } from "../constants/constants";
 
-const API_URL = "https://api.react-learning.ru/";
 axios.defaults.baseURL = API_URL;
 
 export const ProductsApi = {

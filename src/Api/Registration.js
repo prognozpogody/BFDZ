@@ -1,6 +1,6 @@
 import axios from "axios";
+import { API_URL } from "../constants/constants";
 
-const API_URL = "https://api.react-learning.ru/";
 axios.defaults.baseURL = API_URL;
 
 export const RegistrationApi = {
@@ -13,6 +13,7 @@ export const RegistrationApi = {
   // Авторизация
   async authorization(values) {
     return await axios.post("signin", values).then((response) => {
+      localStorage.setItem("token", response.data.token);
       return response.data;
     });
   },
