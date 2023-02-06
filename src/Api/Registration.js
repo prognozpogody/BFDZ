@@ -14,9 +14,7 @@ export const RegistrationApi = {
   async authorization(values) {
     return await axios.post("signin", values).then((response) => {
       localStorage.setItem("token", response.data.token);
-      return response.data;
+      return response;
     });
   },
-
- 
 };

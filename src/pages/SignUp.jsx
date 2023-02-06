@@ -39,20 +39,20 @@ function SignUp() {
   const { mutateAsync: mutateAuthorization } = useMutation({
     mutationFn: (values) => RegistrationApi.authorization(values),
   });
-// TODO если человек решит зарегестрироваться с уже существующим аккаунтом или еще чего
-// тогда первый запрос будет error
-// тебе надо responce первого запроса и оттуда values передать в авторизейшн
+  // TODO если человек решит зарегестрироваться с уже существующим аккаунтом или еще чего
+  // тогда первый запрос будет error
+  // тебе надо responce первого запроса и оттуда values передать в авторизейшн
   const onFinish = async (values) => {
-    await mutateRegistration(values);
-    const res = await mutateAuthorization({
-      email: values.email,
-      password: values.password,
+    await mutateRegistration(values).then(async () => {
+      const res = await mutateAuthorization({
+        email: values.email,
+        password: values.password,
+      });
+      setIsAuth(true);
+      setUserToken(res.data.token);
+      setUser(res.data.data);
+      navigate("/Product");
     });
-    localStorage.setItem("token", res.token);
-    setIsAuth(true);
-    setUserToken(res.token);
-    setUser(res);
-    navigate("/Product");
   };
 
   return (

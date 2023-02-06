@@ -3,24 +3,28 @@ import { RegistrationApi } from "../../Api/Registration";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/Context";
 import { useContext } from "react";
+import { useMutation } from "@tanstack/react-query";
 
 //код самой формы авторизации
 function FormAuthorization() {
   const { setIsAuth, setUserToken, setModalOpen } = useContext(UserContext);
   const navigate = useNavigate();
 
+  const { mutateAsync: mutateAuthorization } = useMutation({
+    mutationFn: (values) => RegistrationApi.authorization(values),
+  });
+
   // Результат обработки формы авторизации, результат обновляет данные в контексте
-  const onFinishSignIn = async (values) => {
-    const res = await RegistrationApi.authorization(values);
-    console.log(res.token);
+  const onFinish = async (values) => {
+    const res = await mutateAuthorization(values);
+    setModalOpen(false);
     setIsAuth(true);
     setUserToken(res.token);
-    setModalOpen(false);
     navigate("/Product");
   };
 
   return (
-    <Form name="basic" onFinish={onFinishSignIn} autoComplete="off">
+    <Form name="basic" onFinish={onFinish} autoComplete="off">
       <Form.Item
         label="Почта"
         name="email"
