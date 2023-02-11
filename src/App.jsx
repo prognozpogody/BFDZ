@@ -1,7 +1,9 @@
+/** @format */
+
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
 import FormAuthorization from "./Components/FormAuthorization/FormAuthorization";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, render } from "react";
 import "./App.css";
 import ModalPortal from "./Components/ModalPortal/ModalPortal";
 import { UserContext } from "./Context/Context";
@@ -19,7 +21,7 @@ function App() {
     setModalOpen,
     isAuth,
     setUser,
-    userToken
+    userToken,
   } = useContext(UserContext);
 
   const { data } = useQuery({
@@ -29,37 +31,20 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const TOKEN = localStorage.getItem("token");
   // Проверка на наличие токена, обновление токена в контексте, вызов модалки
   // авторизации, если нет токена
   // TODO Сделать навигейт с главной страницы если есть токен и он норм
   useEffect(() => {
+    const TOKEN = localStorage.getItem("token");
     if (TOKEN) {
       setIsAuth(true);
       setUserToken(TOKEN);
       setUser(data);
-      console.log(isAuth);
-      console.log(userToken);
+      
     } else if (!isAuth && location.pathname !== "/signup") {
       setModalOpen(true);
     }
-  }, [
-    onFinishSignIn,
-    setIsAuth,
-    setUserToken,
-    modalOpen,
-    setModalOpen,
-    isAuth,
-    setUser,
-    location,
-    data,
-    TOKEN,
-    userToken
-  ]);
-
-  // if (isAuth ===true ) {
-  //   return <Navigate to="Product" />
-  // }
+  }, []);
 
   return (
     <>

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/Context";
 import { useContext } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { Spinner } from "../Spinner/Spinner";
 
 //код самой формы авторизации
 function FormAuthorization() {
@@ -11,7 +12,12 @@ function FormAuthorization() {
     useContext(UserContext);
   const navigate = useNavigate();
 
-  const { mutateAsync: mutateAuthorization } = useMutation({
+  const {
+    mutateAsync: mutateAuthorization,
+    isLoading,
+    isError,
+    error,
+  } = useMutation({
     mutationFn: (values) => RegistrationApi.authorization(values),
   });
 
@@ -19,16 +25,20 @@ function FormAuthorization() {
   const onFinish = async (values) => {
     const res = await mutateAuthorization(values);
     localStorage.setItem("token", res.data.token);
-    const token = localStorage.getItem("token");
-    console.log(token);
-    setUserToken(token);
-    console.log(userToken);
+    setUserToken(res.data.token);
     setModalOpen(false);
     setIsAuth(true);
     setTimeout(() => {
+      console.log(userToken);
       navigate("/Product");
-    }, 100);
+    }, 3000);
+
+
   };
+
+  if (isLoading) return <Spinner />;
+
+  if (isError) return <p>Error happend: {error.message}</p>;
 
   return (
     <Form name="basic" onFinish={onFinish} autoComplete="off">

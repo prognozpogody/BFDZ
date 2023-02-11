@@ -1,6 +1,6 @@
 import { Layout } from "antd";
 import Card from "../Components/Content/Card";
-import { useEffect, useState, useContext } from "react";
+import { useContext } from "react";
 import { ProductsApi } from "../Api/Products";
 import { UserContext } from "../Context/Context";
 import { useQuery } from "@tanstack/react-query";
@@ -10,21 +10,15 @@ const { Content } = Layout;
 
 const ProductPage = () => {
   const { userToken } = useContext(UserContext);
-  const [products, setProducts] = useState({ total: 0, products: [] });
+   //Здесь получаем по апи с сервера все продукты
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["getProducts"],
     queryFn: () => ProductsApi.getProducts(userToken),
   });
-  console.log();
 
-  //Здесь получаем по апи с сервера все продукты
-  useEffect(() => {
-    setProducts(data);
-  }, [userToken, data]);
+  if (isLoading) return <Spinner />;
 
-  if (isLoading) return (<Spinner />)
-
-  if (isError) return <p>Error happend: {error.message}</p>
+  if (isError) return <p>Error happend: {error.message}</p>;
 
   return (
     <Content
@@ -40,7 +34,7 @@ const ProductPage = () => {
           background: "white",
         }}
       >
-        <Card products={products} />
+        <Card products={data.products} />
       </div>
     </Content>
   );
