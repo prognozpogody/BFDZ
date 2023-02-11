@@ -40,10 +40,10 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <UserContextProvider>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <UserContextProvider>
         <RouterProvider router={router} />
-      </QueryClientProvider>
-    </UserContextProvider>
+      </UserContextProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );

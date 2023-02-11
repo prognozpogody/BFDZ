@@ -19,10 +19,11 @@ function App() {
     setModalOpen,
     isAuth,
     setUser,
+    userToken
   } = useContext(UserContext);
 
   const { data } = useQuery({
-    queryKey: ["CurrentUser"],
+    queryKey: ["currentUser"],
     queryFn: () => UserApi.getInfoUser(),
   });
   const navigate = useNavigate();
@@ -37,6 +38,8 @@ function App() {
       setIsAuth(true);
       setUserToken(TOKEN);
       setUser(data);
+      console.log(isAuth);
+      console.log(userToken);
     } else if (!isAuth && location.pathname !== "/signup") {
       setModalOpen(true);
     }
@@ -51,6 +54,7 @@ function App() {
     location,
     data,
     TOKEN,
+    userToken
   ]);
 
   // if (isAuth ===true ) {

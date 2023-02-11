@@ -7,7 +7,8 @@ import { useMutation } from "@tanstack/react-query";
 
 //код самой формы авторизации
 function FormAuthorization() {
-  const { setIsAuth, setUserToken, setModalOpen } = useContext(UserContext);
+  const { setIsAuth, setUserToken, setModalOpen, userToken } =
+    useContext(UserContext);
   const navigate = useNavigate();
 
   const { mutateAsync: mutateAuthorization } = useMutation({
@@ -17,10 +18,16 @@ function FormAuthorization() {
   // Результат обработки формы авторизации, результат обновляет данные в контексте
   const onFinish = async (values) => {
     const res = await mutateAuthorization(values);
+    localStorage.setItem("token", res.data.token);
+    const token = localStorage.getItem("token");
+    console.log(token);
+    setUserToken(token);
+    console.log(userToken);
     setModalOpen(false);
     setIsAuth(true);
-    setUserToken(res.token);
-    navigate("/Product");
+    setTimeout(() => {
+      navigate("/Product");
+    }, 100);
   };
 
   return (
