@@ -1,19 +1,16 @@
 import { Layout } from "antd";
 import Card from "../Components/Content/Card";
-import { useContext } from "react";
 import { ProductsApi } from "../Api/Products";
-import { UserContext } from "../Context/Context";
 import { useQuery } from "@tanstack/react-query";
 import { Spinner } from "../Components/Spinner/Spinner";
 
 const { Content } = Layout;
 
 const ProductPage = () => {
-  const { userToken } = useContext(UserContext);
    //Здесь получаем по апи с сервера все продукты
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["getProducts"],
-    queryFn: () => ProductsApi.getProducts(userToken),
+    queryFn: () => ProductsApi.getProducts(),
   });
 
   if (isLoading) return <Spinner />;

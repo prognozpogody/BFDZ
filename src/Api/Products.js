@@ -5,11 +5,11 @@ axios.defaults.baseURL = API_URL;
 
 export const ProductsApi = {
   // получение всех товаров
-  async getProducts(userToken) {
+  async getProducts() {
     return await axios
       .get("products", {
         headers: {
-          Authorization: "Bearer " + userToken,
+          Authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
       .then((response) => {

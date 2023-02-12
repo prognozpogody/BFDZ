@@ -7,11 +7,15 @@ export const RegistrationApi = {
   // Регистрация
   async registration(values) {
     return await axios.post("signup", values).then((response) => {
+      localStorage.setItem("token", response.data.token);
       return response.data;
     });
   },
   // Авторизация
   async authorization(values) {
-    return await axios.post("signin", values)
+    return await axios.post("signin", values).then((response) => {
+      localStorage.setItem("token", response.data.token);
+      return response.data;
+    });
   },
 };

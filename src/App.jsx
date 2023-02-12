@@ -3,7 +3,7 @@
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
 import FormAuthorization from "./Components/FormAuthorization/FormAuthorization";
-import { useContext, useEffect, render } from "react";
+import { useContext, useEffect } from "react";
 import "./App.css";
 import ModalPortal from "./Components/ModalPortal/ModalPortal";
 import { UserContext } from "./Context/Context";
@@ -21,13 +21,13 @@ function App() {
     setModalOpen,
     isAuth,
     setUser,
-    userToken,
   } = useContext(UserContext);
 
   const { data } = useQuery({
     queryKey: ["currentUser"],
     queryFn: () => UserApi.getInfoUser(),
   });
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -40,11 +40,12 @@ function App() {
       setIsAuth(true);
       setUserToken(TOKEN);
       setUser(data);
-      
+      navigate("Product");
     } else if (!isAuth && location.pathname !== "/signup") {
+      navigate("/");
       setModalOpen(true);
     }
-  }, []);
+  }, [data]);
 
   return (
     <>

@@ -8,7 +8,7 @@ import { Spinner } from "../Spinner/Spinner";
 
 //код самой формы авторизации
 function FormAuthorization() {
-  const { setIsAuth, setUserToken, setModalOpen, userToken } =
+  const { setIsAuth, setUserToken, setModalOpen } =
     useContext(UserContext);
   const navigate = useNavigate();
 
@@ -24,14 +24,12 @@ function FormAuthorization() {
   // Результат обработки формы авторизации, результат обновляет данные в контексте
   const onFinish = async (values) => {
     const res = await mutateAuthorization(values);
-    localStorage.setItem("token", res.data.token);
     setUserToken(res.data.token);
     setModalOpen(false);
     setIsAuth(true);
     setTimeout(() => {
-      console.log(userToken);
       navigate("/Product");
-    }, 3000);
+    }, 100);
 
 
   };
