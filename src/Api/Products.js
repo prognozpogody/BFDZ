@@ -16,5 +16,12 @@ export const ProductsApi = {
         return response.data;
       });
   },
-};
 
+  async getProductByID(id, token) {
+    return await axios.get(`products/${id}`, {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    });
+  },
+};

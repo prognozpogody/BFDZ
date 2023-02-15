@@ -3,11 +3,12 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { UserContextProvider } from "./Context/Context";
 import SignUp from "./pages/SignUp";
 import ProductPage from "./pages/Product";
 import UserPage from "./pages/User";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,12 +41,10 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <UserContextProvider>
-    <QueryClientProvider client={queryClient}>
-      
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
-      
-    </QueryClientProvider>
-    </UserContextProvider>
+      </QueryClientProvider>
+    </Provider>
   </React.StrictMode>
 );

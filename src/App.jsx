@@ -3,26 +3,15 @@
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
 import FormAuthorization from "./Components/FormAuthorization/FormAuthorization";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import "./App.css";
 import ModalPortal from "./Components/ModalPortal/ModalPortal";
-import { UserContext } from "./Context/Context";
 import { useNavigate, Outlet, useLocation } from "react-router-dom";
 import { Button, Layout } from "antd";
 import { UserApi } from "./Api/User";
 import { useQuery } from "@tanstack/react-query";
 
 function App() {
-  const {
-    onFinishSignIn,
-    setIsAuth,
-    setUserToken,
-    modalOpen,
-    setModalOpen,
-    isAuth,
-    setUser,
-  } = useContext(UserContext);
-
   const { data } = useQuery({
     queryKey: ["currentUser"],
     queryFn: () => UserApi.getInfoUser(),
@@ -30,32 +19,32 @@ function App() {
 
   const navigate = useNavigate();
   const location = useLocation();
-
+  let modalOpen;
   // Проверка на наличие токена, обновление токена в контексте, вызов модалки
   // авторизации, если нет токена
   // TODO Сделать навигейт с главной страницы если есть токен и он норм
-  useEffect(() => {
-    const TOKEN = localStorage.getItem("token");
-    if (TOKEN) {
-      setIsAuth(true);
-      setUserToken(TOKEN);
-      setUser(data);
-      navigate("Product");
-    } else if (!isAuth && location.pathname !== "/signup") {
-      navigate("/");
-      setModalOpen(true);
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   const TOKEN = localStorage.getItem("token");
+  //   if (TOKEN) {
+  //     setIsAuth(true);
+  //     setUserToken(TOKEN);
+  //     setUser(data);
+  //     navigate("Product");
+  //   } else if (!isAuth && location.pathname !== "/signup") {
+  //     navigate("/");
+  //     setModalOpen(true);
+  //   }
+  // }, [data]);
 
   return (
     <>
       <ModalPortal isOpen={modalOpen}>
-        <FormAuthorization onFinish={onFinishSignIn} />
+        <FormAuthorization />
         <Button
           type="primary"
           htmlType="button"
           onClick={() => {
-            setModalOpen(false);
+            modalOpen = false;
             navigate("signup");
           }}
         >
