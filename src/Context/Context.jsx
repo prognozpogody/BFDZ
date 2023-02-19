@@ -8,9 +8,9 @@ export function UserContextProvider({ children }) {
   //Переключатель открытия модалки авторизации
   const [modalOpen, setModalOpen] = useState(false);
   //Хрантель данных о юзере
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(false);
   //Состояние токена
-  const [userToken, setUserToken] = useState();
+  const [userToken, setUserToken] = useState(false);
 
   const userData = {
     isAuth,

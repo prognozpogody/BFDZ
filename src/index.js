@@ -7,7 +7,7 @@ import SignUp from "./pages/SignUp";
 import ProductPage from "./pages/Product";
 import UserPage from "./pages/User";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { store } from "./redux/store";
+import { store } from "./Redux/Store";
 import { Provider } from "react-redux";
 
 const queryClient = new QueryClient({
@@ -17,6 +17,7 @@ const queryClient = new QueryClient({
     },
   },
 });
+
 const router = createBrowserRouter([
   {
     path: "/",

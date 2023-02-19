@@ -1,15 +1,8 @@
 import { REDUX_TOKEN } from "../constants/constants";
 
 export const initState = {
-  token: "Null",
   modalOpen: false,
-  user: { group: "", email: "", token: "" },
-  cart: {
-    product_id: {
-      count: "",
-      isChecked: false,
-    },
-  },
+  user: { group: "", name: "", email: "", token: "Null" },
   filter: {
     search: "",
   },

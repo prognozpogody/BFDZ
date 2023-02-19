@@ -1,5 +1,8 @@
 import { Layout, Menu } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { changeModalState } from "../../Redux/slices/modalSlice";
 
 const { Header } = Layout;
 
@@ -16,9 +19,21 @@ const menuItems = [
 
 const HeaderProject = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
   const handleRoute = (event) => {
     navigate(event.key);
   };
+
+  useEffect(() => {
+    const TOKEN = localStorage.getItem("token");
+    if (TOKEN) {
+      navigate("Product");
+    } else if (!TOKEN && location.pathname !== "/signup") {
+      dispatch(changeModalState(true));
+      navigate("/");
+    }
+  }, []);
 
   return (
     <Header
