@@ -1,49 +1,24 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { initState } from "../initialState";
-import axios from "axios";
-import { API_URL } from "../../constants/constants";
-
-axios.defaults.baseURL = API_URL;
-
-// Регистрация
-export const registration = createAsyncThunk("registration", async (values) => {
-  return await axios.post("signup", values).then((response) => {
-    localStorage.setItem("token", response.data.token);
-    return response.data;
-  });
-});
-// Авторизация
-export const authorization = createAsyncThunk(
-  "authorization",
-  async (values) => {
-    return await axios.post("signin", values).then((response) => {
-      localStorage.setItem("token", response.data.token);
-      return response.data;
-    });
-  }
-);
 
 const userSlice = createSlice({
   name: "user",
   initialState: initState.user,
   reducers: {
-    setUser: {
-      reducer(state, action) {
-        if (state.email !== action.payload.email) return action.payload;
-      },
-      prepare(id, token, email) {
-        return {
-          payload: {
-            id,
-            token,
-            email,
-          },
-        };
-      },
+    setUser(state, action) {
+      state.about = action.payload.payload.data.about;
+      state.avatar = action.payload.payload.data.avatar;
+      state.email = action.payload.payload.data.email;
+      state.group = action.payload.payload.data.group;
+      state.name = action.payload.payload.data.name;
+      state.__v = action.payload.payload.data.__v;
+      state._id = action.payload.payload.data._id;
+      state.token = action.payload.payload.token;
+      return state;
     },
-    deleteUser() {
-      return initState.user;
-    },
+  },
+  deleteUser() {
+    return initState.user;
   },
 });
 

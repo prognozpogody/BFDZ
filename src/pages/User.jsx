@@ -1,13 +1,9 @@
-import { useContext, useEffect, useState } from "react";
 import { Descriptions } from "antd";
-import { UserContext } from "../Context/Context";
+import { useSelector } from "react-redux";
+import { getUserSelector } from "../Redux/slices/userSlice";
 
 function UserPage() {
-  const { user } = useContext(UserContext);
-  const [userInfo, setUserInfo] = useState();
-  useEffect(() => {
-    setUserInfo(user);
-  }, [user]);
+  const userInfo = useSelector(getUserSelector);
   return (
     <Descriptions title="User Info">
       <Descriptions.Item label="UserName">{userInfo?.name}</Descriptions.Item>

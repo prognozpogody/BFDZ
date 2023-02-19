@@ -2,7 +2,17 @@ import { REDUX_TOKEN } from "../constants/constants";
 
 export const initState = {
   modalOpen: false,
-  user: { group: "", name: "", email: "", token: "Null" },
+  products: [],
+  user: {
+    group: "",
+    name: "",
+    email: "",
+    token: "Null",
+    avatar: "",
+    about: "",
+    _id: "",
+    __v: "",
+  },
   filter: {
     search: "",
   },

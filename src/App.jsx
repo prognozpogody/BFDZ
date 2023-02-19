@@ -6,15 +6,9 @@ import "./App.css";
 import ModalPortal from "./Components/ModalPortal/ModalPortal";
 import { useNavigate, Outlet } from "react-router-dom";
 import { Button, Layout } from "antd";
-import { UserApi } from "./Api/User";
-import { useQuery } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
 
 function App() {
-  const { data } = useQuery({
-    queryKey: ["currentUser"],
-    queryFn: () => UserApi.getInfoUser(),
-  });
 
   const navigate = useNavigate();
   const modalOpen = useSelector((state) => state.modalOpen);

@@ -1,7 +1,9 @@
 import { Button, Form, Input } from "antd";
-import { RegistrationApi } from "../Api/Registration";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
+import { useDispatch } from "react-redux";
+import { setUser } from "../Redux/slices/userSlice";
+import { registration, authorization } from "../Redux/thunk";
 
 const layout = {
   labelCol: {
@@ -26,15 +28,16 @@ const validateMessages = {
 /* eslint-enable no-template-curly-in-string */
 
 function SignUp() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   // Результат обработки формы регистрации, происходит регистрация и
   // авторизация, после редирект на продукты
   const { mutateAsync: mutateRegistration } = useMutation({
-    mutationFn: (values) => RegistrationApi.registration(values),
+    mutationFn: (values) => dispatch(registration(values)),
   });
 
   const { mutateAsync: mutateAuthorization } = useMutation({
-    mutationFn: (values) => RegistrationApi.authorization(values),
+    mutationFn: (values) => dispatch(authorization(values)),
   });
   // TODO если человек решит зарегестрироваться с уже существующим аккаунтом или еще чего
   // тогда первый запрос будет error
@@ -45,7 +48,10 @@ function SignUp() {
         email: values.email,
         password: values.password,
       });
-      navigate("/Product");
+      setTimeout(() => {
+        dispatch(setUser(res));
+        navigate("/Product");
+      }, 200);
     });
   };
 

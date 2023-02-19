@@ -1,17 +1,25 @@
 import { Layout } from "antd";
-import Card from "../Components/Content/Card";
-import { ProductsApi } from "../Api/Products";
+import Card from "../Components/Card/Card";
 import { useQuery } from "@tanstack/react-query";
 import { Spinner } from "../Components/Spinner/Spinner";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../Redux/thunk";
+import {
+  setProducts,
+  getAllProductsSelector,
+} from "../Redux/slices/productsSlice";
 
 const { Content } = Layout;
 
 const ProductPage = () => {
-   //Здесь получаем по апи с сервера все продукты
+  const dispatch = useDispatch();
+  const products = useSelector(getAllProductsSelector);
+  //Здесь получаем по апи с сервера все продукты
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["getProducts"],
-    queryFn: () => ProductsApi.getProducts(),
+    queryFn: () => dispatch(getProducts()),
   });
+  dispatch(setProducts(data));
 
   if (isLoading) return <Spinner />;
 
@@ -31,7 +39,7 @@ const ProductPage = () => {
           background: "white",
         }}
       >
-        <Card products={data.products} />
+        <Card products={products} />
       </div>
     </Content>
   );

@@ -1,15 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { getInitState } from "./initialState";
+import { REDUX_TOKEN } from "../constants/constants";
 import { filterReducer } from "./slices/filterSlice";
 import { userReducer } from "./slices/userSlice";
-import { REDUX_TOKEN } from "../constants/constants";
 import { modalOpenReducer } from "./slices/modalSlice";
+import { productReducer } from "./slices/productsSlice";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     filter: filterReducer,
     modalOpen: modalOpenReducer,
+    products: productReducer,
   },
   preloadedState: getInitState(),
 });
