@@ -1,8 +1,6 @@
 import { Button, Form, Input } from "antd";
 import { RegistrationApi } from "../Api/Registration";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../Context/Context";
-import { useContext } from "react";
 import { useMutation } from "@tanstack/react-query";
 
 const layout = {
@@ -28,7 +26,6 @@ const validateMessages = {
 /* eslint-enable no-template-curly-in-string */
 
 function SignUp() {
-  const { setIsAuth, setUserToken, setUser } = useContext(UserContext);
   const navigate = useNavigate();
   // Результат обработки формы регистрации, происходит регистрация и
   // авторизация, после редирект на продукты
@@ -48,9 +45,6 @@ function SignUp() {
         email: values.email,
         password: values.password,
       });
-      setIsAuth(true);
-      setUserToken(res.data.token);
-      setUser(res.data.data);
       navigate("/Product");
     });
   };

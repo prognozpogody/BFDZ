@@ -1,15 +1,15 @@
 import { Input, Form, Button } from "antd";
 import { RegistrationApi } from "../../Api/Registration";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../Context/Context";
-import { useContext } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { Spinner } from "../Spinner/Spinner";
+import { useDispatch } from "react-redux";
+import { changeModalState } from "../../Redux/slices/modalSlice";
 
 //код самой формы авторизации
 function FormAuthorization() {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const {
     mutateAsync: mutateAuthorization,
     isLoading,
@@ -23,6 +23,7 @@ function FormAuthorization() {
   const onFinish = async (values) => {
     const res = await mutateAuthorization(values);
     setTimeout(() => {
+      dispatch(changeModalState(false));
       navigate("/Product");
     }, 100);
 

@@ -1,5 +1,3 @@
-/** @format */
-
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
 import FormAuthorization from "./Components/FormAuthorization/FormAuthorization";
@@ -20,8 +18,7 @@ function App() {
 
   const navigate = useNavigate();
   const modalOpen = useSelector((state) => state.modalOpen);
-  console.log(modalOpen);
-  const dispatch = useDispatch(changeModalState);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -31,7 +28,7 @@ function App() {
           type="primary"
           htmlType="button"
           onClick={() => {
-            dispatch(changeModalState(true));;
+            dispatch(changeModalState(false));
             navigate("signup");
           }}
         >
