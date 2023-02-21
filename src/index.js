@@ -3,7 +3,20 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ProductPage from "./Components/Content/ProductPage";
+import SignUp from "./pages/SignUp";
+import ProductPage from "./pages/Product";
+import UserPage from "./pages/User";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { store } from "./Redux/Store";
+import { Provider } from "react-redux";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const router = createBrowserRouter([
   {
@@ -11,8 +24,16 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "products",
+        path: "signup",
+        element: <SignUp />,
+      },
+      {
+        path: "Product",
         element: <ProductPage />,
+      },
+      {
+        path: "User",
+        element: <UserPage />,
       },
     ],
   },
@@ -21,6 +42,10 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </Provider>
   </React.StrictMode>
 );
