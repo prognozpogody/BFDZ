@@ -2,7 +2,7 @@ import { Descriptions } from "antd";
 import { useSelector } from "react-redux";
 import { getUserSelector } from "../Redux/slices/userSlice";
 
-function UserPage() {
+export const User = () => {
   const userInfo = useSelector(getUserSelector);
   return (
     <Descriptions title="User Info">
@@ -13,6 +13,4 @@ function UserPage() {
       <Descriptions.Item label="email">{userInfo?.email}</Descriptions.Item>
     </Descriptions>
   );
-}
-
-export default UserPage;
+};

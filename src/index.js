@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
+import { App } from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import SignUp from "./pages/SignUp";
-import ProductPage from "./pages/Product";
-import UserPage from "./pages/User";
+import { SignUp } from "./Pages/SignUp";
+import { Products } from "./Pages/Products";
+import { User } from "./Pages/User";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { store } from "./Redux/Store";
+import { store } from "./Redux/store";
 import { Provider } from "react-redux";
 
 const queryClient = new QueryClient({
@@ -28,12 +28,12 @@ const router = createBrowserRouter([
         element: <SignUp />,
       },
       {
-        path: "Product",
-        element: <ProductPage />,
+        path: "products",
+        element: <Products />,
       },
       {
-        path: "User",
-        element: <UserPage />,
+        path: "user",
+        element: <User />,
       },
     ],
   },

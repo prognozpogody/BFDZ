@@ -3,38 +3,46 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { changeModalState } from "../../Redux/slices/modalSlice";
+import { logOutUser } from "../../Redux/slices/userSlice";
 
 const { Header } = Layout;
 
 const menuItems = [
   {
-    key: `Product`,
-    label: `Product`,
+    key: `products`,
+    label: `Каталог продуктов`,
   },
   {
-    key: `User`,
-    label: `User`,
+    key: `user`,
+    label: `Личный кабинет`,
+  },
+  {
+    key: `cart`,
+    label: "Корзина",
   },
 ];
 
-const HeaderProject = () => {
+export const HeaderProject = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
   const handleRoute = (event) => {
     navigate(event.key);
   };
+  const handleLogOut = () => {
+    dispatch(logOutUser());
+  };
 
   useEffect(() => {
     const TOKEN = localStorage.getItem("token");
     if (TOKEN) {
-      navigate("Product");
+      navigate("/products");
     } else if (!TOKEN && location.pathname !== "/signup") {
       dispatch(changeModalState(true));
       navigate("/");
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Header
@@ -54,6 +62,16 @@ const HeaderProject = () => {
           background: "green",
         }}
       />
+      <div
+        style={{
+          float: "right",
+          width: 150,
+          color: "white",
+        }}
+        onClick={handleLogOut}
+      >
+        Выход
+      </div>
       <Menu
         theme="dark"
         mode="horizontal"
@@ -63,5 +81,3 @@ const HeaderProject = () => {
     </Header>
   );
 };
-
-export default HeaderProject;

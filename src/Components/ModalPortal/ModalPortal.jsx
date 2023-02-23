@@ -5,8 +5,7 @@ function ModalContent({ children }) {
   return <div className={style.modal_content}>{children}</div>;
 }
 
-// Портал для модалки
-const ModalPortal = function ({ children, isOpen = false }) {
+export const ModalPortal = function ({ children, isOpen = false }) {
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
@@ -16,5 +15,3 @@ const ModalPortal = function ({ children, isOpen = false }) {
     document.getElementById("modal-root")
   );
 };
-
-export default ModalPortal;

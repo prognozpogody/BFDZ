@@ -2,8 +2,8 @@ import { Button, Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
-import { setUser } from "../Redux/slices/userSlice";
 import { registration, authorization } from "../Redux/thunk";
+import { Spinner } from "../Components/Spinner/Spinner";
 
 const layout = {
   labelCol: {
@@ -16,23 +16,25 @@ const layout = {
 
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
-  required: "${label} is required!",
+  required: "${label} пожалуйста, введите данные!",
   types: {
-    email: "${label} is not a valid email!",
-    number: "${label} is not a valid number!",
-  },
-  number: {
-    range: "${label} must be between ${min} and ${max}",
+    email: "${label} не является почтой email",
+    number: "${label} введите число",
   },
 };
 /* eslint-enable no-template-curly-in-string */
 
-function SignUp() {
+export const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // Результат обработки формы регистрации, происходит регистрация и
   // авторизация, после редирект на продукты
-  const { mutateAsync: mutateRegistration } = useMutation({
+  const {
+    mutateAsync: mutateRegistration,
+    isLoading,
+    isError,
+    error,
+  } = useMutation({
     mutationFn: (values) => dispatch(registration(values)),
   });
 
@@ -44,16 +46,16 @@ function SignUp() {
   // тебе надо responce первого запроса и оттуда values передать в авторизейшн
   const onFinish = async (values) => {
     await mutateRegistration(values).then(async () => {
-      const res = await mutateAuthorization({
+      await mutateAuthorization({
         email: values.email,
         password: values.password,
       });
-      setTimeout(() => {
-        dispatch(setUser(res));
-        navigate("/Product");
-      }, 200);
+      navigate("/product");
     });
   };
+
+  if (isLoading) return <Spinner />;
+  if (isError) return <p>Error happend: {error.message}</p>;
 
   return (
     <Form
@@ -67,16 +69,25 @@ function SignUp() {
     >
       <Form.Item
         name="email"
-        label="Email"
+        label="Пароль"
         rules={[
           {
             type: "email",
+            required: true,
           },
         ]}
       >
         <Input />
       </Form.Item>
-      <Form.Item name="group" label="group">
+      <Form.Item
+        name="group"
+        label="Группа"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
         <Input />
       </Form.Item>
       <Form.Item
@@ -98,5 +109,4 @@ function SignUp() {
       </Form.Item>
     </Form>
   );
-}
-export default SignUp;
+};

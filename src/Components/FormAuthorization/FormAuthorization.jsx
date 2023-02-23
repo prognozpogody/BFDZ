@@ -3,34 +3,30 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { Spinner } from "../Spinner/Spinner";
 import { useDispatch } from "react-redux";
-import { changeModalState } from "../../Redux/slices/modalSlice";
-import { setUser } from "../../Redux/slices/userSlice";
 import { authorization } from "../../Redux/thunk";
 
-//код самой формы авторизации
-function FormAuthorization() {
+export const FormAuthorization = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const {
     mutateAsync: mutateAuthorization,
     isLoading,
     isError,
     error,
   } = useMutation({
-    mutationFn: (values) => dispatch(authorization(values)),
+    mutationFn: (values) => {
+      dispatch(authorization(values));
+    },
   });
 
-  // Результат обработки формы авторизации, результат обновляет данные в контексте
+  // Результат обработки формы авторизации, результат обновляет данные в редакс
   const onFinish = async (values) => {
-    const res = await mutateAuthorization(values);
-    console.log(res);
-    dispatch(changeModalState(false));
-    dispatch(setUser(res));
-    navigate("/Product");
+    await mutateAuthorization(values);
+    navigate("/products");
   };
 
   if (isLoading) return <Spinner />;
-
   if (isError) return <p>Error happend: {error.message}</p>;
 
   return (
@@ -60,6 +56,4 @@ function FormAuthorization() {
       </Form.Item>
     </Form>
   );
-}
-
-export default FormAuthorization;
+};

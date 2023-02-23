@@ -1,27 +1,25 @@
-import axios from "axios";
-import { API_URL } from "../constants/constants";
+import axios from "../axios/index";
+import { store } from "../Redux/store";
 
-axios.defaults.baseURL = API_URL;
+const token = store.getState().user.token;
 
-export const ProductsApi = {
-  // получение всех товаров
-  async getProducts() {
-    return await axios
-      .get("products", {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      })
-      .then((response) => {
-        return response.data;
-      });
-  },
-
-  async getProductByID(id, token) {
-    return await axios.get(`products/${id}`, {
+// получение всех товаров
+export const getProducts = async () => {
+  return await axios
+    .get("products", {
       headers: {
-        authorization: "Bearer " + token,
+        Authorization: "Bearer " + token,
       },
+    })
+    .then((response) => {
+      return response.data;
     });
-  },
+};
+
+export const getProductByID = async (id) => {
+  return await axios.get(`products/${id}`, {
+    headers: {
+      authorization: "Bearer " + token,
+    },
+  });
 };

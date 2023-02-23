@@ -2,13 +2,13 @@ import { Card, Space } from "antd";
 
 const { Meta } = Card;
 
-const Cards = ({ products }) => {
+export const CardList = ({ products }) => {
   return (
     <Space direction="horizontal" align="center" wrap>
       {products.map((product) => {
         return (
           <Card
-            key={product.id}
+            key={product._id}
             style={{ width: 300 }}
             cover={<img alt={product.name} src={product.pictures} />}
           >
@@ -19,4 +19,4 @@ const Cards = ({ products }) => {
     </Space>
   );
 };
-export default Cards;
+
