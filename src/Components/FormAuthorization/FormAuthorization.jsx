@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { Spinner } from "../Spinner/Spinner";
 import { useDispatch } from "react-redux";
+import { changeModalState } from "../../Redux/slices/modalSlice";
+import { setUser } from "../../Redux/slices/userSlice";
 import { authorization } from "../../Redux/thunk";
 
 export const FormAuthorization = () => {
@@ -16,13 +18,15 @@ export const FormAuthorization = () => {
     error,
   } = useMutation({
     mutationFn: (values) => {
-      dispatch(authorization(values));
+      return dispatch(authorization(values));
     },
   });
 
   // Результат обработки формы авторизации, результат обновляет данные в редакс
   const onFinish = async (values) => {
-    await mutateAuthorization(values);
+    const res = await mutateAuthorization(values)
+    dispatch(changeModalState(false));
+    dispatch(setUser(res.payload));
     navigate("/products");
   };
 

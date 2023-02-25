@@ -26,15 +26,18 @@ export const HeaderProject = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+
+  const TOKEN = localStorage.getItem("token");
+
   const handleRoute = (event) => {
     navigate(event.key);
   };
   const handleLogOut = () => {
     dispatch(logOutUser());
+    navigate("/");
   };
 
   useEffect(() => {
-    const TOKEN = localStorage.getItem("token");
     if (TOKEN) {
       navigate("/products");
     } else if (!TOKEN && location.pathname !== "/signup") {
@@ -42,7 +45,7 @@ export const HeaderProject = () => {
       navigate("/");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [TOKEN]);
 
   return (
     <Header

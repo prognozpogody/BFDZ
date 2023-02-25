@@ -4,6 +4,8 @@ import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { registration, authorization } from "../Redux/thunk";
 import { Spinner } from "../Components/Spinner/Spinner";
+import { changeModalState } from "../Redux/slices/modalSlice";
+import { setUser } from "../Redux/slices/userSlice";
 
 const layout = {
   labelCol: {
@@ -39,18 +41,22 @@ export const SignUp = () => {
   });
 
   const { mutateAsync: mutateAuthorization } = useMutation({
-    mutationFn: (values) => dispatch(authorization(values)),
+    mutationFn: (values) => {
+      return dispatch(authorization(values));
+    },
   });
   // TODO если человек решит зарегестрироваться с уже существующим аккаунтом или еще чего
   // тогда первый запрос будет error
   // тебе надо responce первого запроса и оттуда values передать в авторизейшн
   const onFinish = async (values) => {
     await mutateRegistration(values).then(async () => {
-      await mutateAuthorization({
+      const res = await mutateAuthorization({
         email: values.email,
         password: values.password,
       });
-      navigate("/product");
+      dispatch(changeModalState(false));
+      dispatch(setUser(res.payload));
+      navigate("/products");
     });
   };
 
@@ -63,13 +69,13 @@ export const SignUp = () => {
       name="nest-messages"
       onFinish={onFinish}
       style={{
-        maxWidth: 600,
+        maxWidth: 300,
       }}
       validateMessages={validateMessages}
     >
       <Form.Item
         name="email"
-        label="Пароль"
+        label="Почта"
         rules={[
           {
             type: "email",

@@ -10,9 +10,10 @@ const userSlice = createSlice({
       state.token = action.payload.token;
       return state;
     },
-  },
-  logOutUser() {
-    return initState.user;
+    logOutUser() {
+      localStorage.removeItem("token");
+      return initState.user;
+    },
   },
 });
 
