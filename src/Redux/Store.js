@@ -4,12 +4,14 @@ import { REDUX_SINK } from "../utils/constants";
 import { filterReducer } from "./slices/filterSlice";
 import { userReducer } from "./slices/userSlice";
 import { modalOpenReducer } from "./slices/modalSlice";
+import { cartReducer } from "./slices/cartSlice";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     filter: filterReducer,
     modalOpen: modalOpenReducer,
+    cart: cartReducer,
   },
   preloadedState: getInitState(),
 });

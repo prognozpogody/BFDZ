@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { changeModalState } from "../../Redux/slices/modalSlice";
 import { logOutUser } from "../../Redux/slices/userSlice";
+import { SearchInput } from "../SearchInput/SearchInput";
 
 const { Header } = Layout;
 
@@ -38,9 +39,7 @@ export const HeaderProject = () => {
   };
 
   useEffect(() => {
-    if (TOKEN) {
-      navigate("/products");
-    } else if (!TOKEN && location.pathname !== "/signup") {
+    if (!TOKEN && location.pathname !== "/signup") {
       dispatch(changeModalState(true));
       navigate("/");
     }
@@ -58,15 +57,6 @@ export const HeaderProject = () => {
     >
       <div
         style={{
-          float: "left",
-          width: 150,
-          height: 31,
-          margin: "16px 24px 16px 0",
-          background: "green",
-        }}
-      />
-      <div
-        style={{
           float: "right",
           width: 150,
           color: "white",
@@ -75,12 +65,14 @@ export const HeaderProject = () => {
       >
         Выход
       </div>
+
       <Menu
         theme="dark"
         mode="horizontal"
         items={menuItems}
         onClick={handleRoute}
       />
+      <SearchInput />
     </Header>
   );
 };

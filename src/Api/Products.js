@@ -1,14 +1,11 @@
 import axios from "../axios/index";
-import { store } from "../Redux/store";
-
-const token = store.getState().user.token;
 
 // получение всех товаров
 export const getProducts = async () => {
   return await axios
     .get("products", {
       headers: {
-        Authorization: "Bearer " + token,
+        Authorization: "Bearer " + localStorage.getItem("token"),
       },
     })
     .then((response) => {
@@ -19,7 +16,16 @@ export const getProducts = async () => {
 export const getProductByID = async (id) => {
   return await axios.get(`products/${id}`, {
     headers: {
-      authorization: "Bearer " + token,
+      authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  });
+};
+
+
+export const getSearchProduct = async (values) => {
+  return await axios.get(`products/search?query=${values}`, {
+    headers: {
+      authorization: "Bearer " + localStorage.getItem("token"),
     },
   });
 };
