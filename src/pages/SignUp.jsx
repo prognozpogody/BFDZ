@@ -4,7 +4,6 @@ import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { registration, authorization } from "../Redux/thunk";
 import { Spinner } from "../Components/Spinner/Spinner";
-import { changeModalState } from "../Redux/slices/modalSlice";
 import { setUser } from "../Redux/slices/userSlice";
 
 const layout = {
@@ -54,7 +53,6 @@ export const SignUp = () => {
         email: values.email,
         password: values.password,
       });
-      dispatch(changeModalState(false));
       dispatch(setUser(res.payload));
       navigate("/products");
     });
@@ -116,3 +114,5 @@ export const SignUp = () => {
     </Form>
   );
 };
+
+
