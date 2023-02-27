@@ -3,14 +3,14 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { App } from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { SignUp } from "./Pages/SignUp";
-import { Products } from "./Pages/Products";
-import { User } from "./Pages/User";
+import { SignUp } from "./pages/SignUp";
+import { Products } from "./pages/Products";
+import { User } from "./pages/User";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { store } from "./Redux/store";
 import { Provider } from "react-redux";
-import { NotFound } from "./Pages/404";
-import { Search } from "./Pages/Search";
+import { NotFound } from "./pages/404";
+import { Search } from "./pages/Search";
 
 const queryClient = new QueryClient({
   defaultOptions: {

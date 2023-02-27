@@ -1,6 +1,6 @@
 import axios from "../axios/index";
 
-// получение всех товаров
+
 export const getProducts = async () => {
   return await axios
     .get("products", {

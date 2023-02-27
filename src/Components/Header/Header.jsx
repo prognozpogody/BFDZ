@@ -44,7 +44,7 @@ export const HeaderProject = () => {
       navigate("/");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [TOKEN]);
+  }, [navigate, TOKEN]);
 
   return (
     <Header
