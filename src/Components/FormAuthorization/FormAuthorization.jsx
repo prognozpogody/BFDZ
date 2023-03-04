@@ -1,37 +1,16 @@
 import { Input, Form, Button } from "antd";
-import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
-import { Spinner } from "../Spinner/Spinner";
 import { useDispatch } from "react-redux";
-import { changeModalState } from "../../Redux/slices/modalSlice";
-import { setUser } from "../../Redux/slices/userSlice";
-import { authorization } from "../../Redux/thunk";
+import { useNavigate } from "react-router-dom";
+import { authorization } from "../../Redux/slices/thunk";
 
 export const FormAuthorization = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const {
-    mutateAsync: mutateAuthorization,
-    isLoading,
-    isError,
-    error,
-  } = useMutation({
-    mutationFn: (values) => {
-      return dispatch(authorization(values));
-    },
-  });
-
-  // Результат обработки формы авторизации, результат обновляет данные в редакс
   const onFinish = async (values) => {
-    const res = await mutateAuthorization(values)
-    dispatch(changeModalState(false));
-    dispatch(setUser(res.payload));
-    navigate("/products");
+    await dispatch(authorization(values));
+    navigate("products");
   };
-
-  if (isLoading) return <Spinner />;
-  if (isError) return <p>Error happend: {error.message}</p>;
 
   return (
     <Form name="basic" onFinish={onFinish} autoComplete="off">

@@ -4,9 +4,10 @@ export const initState = {
   modalOpen: false,
   user: {},
   filter: {
-    search: "",
+    search: " ",
   },
   cart: [],
+  score: 2,
 };
 
 export const getInitState = () => {

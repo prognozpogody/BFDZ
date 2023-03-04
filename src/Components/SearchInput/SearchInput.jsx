@@ -1,35 +1,38 @@
-import { Input, Space } from "antd";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { changeSearchFilter } from "../../Redux/slices/filterSlice";
 import { useNavigate } from "react-router-dom";
-const { Search } = Input;
+import { useDebounce } from "../../hooks/useDebounce";
 
 const SearchInput = () => {
   const [searchInput, setSearchInput] = useState();
+  const debounceValue = useDebounce(searchInput, 750);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onSearch = (event) => {
-    setSearchInput(event);
-    dispatch(changeSearchFilter(event));
+  const onChange = (value) => {
+    setSearchInput(value.target.value);
     navigate({
-      pathname: "/search",
-      search: `?search=${event}`,
+      pathname: "/products",
+      search: `?search=${value.target.value}`,
     });
   };
 
+  useEffect(() => {
+    if (debounceValue) dispatch(changeSearchFilter(debounceValue));
+  }, [debounceValue, dispatch]);
+
+
   return (
-    <Space direction="vertical">
-      <Search
-        placeholder="Поиск по товарам"
-        allowClear
-        enterButton="Search"
-        size="large"
-        onSearch={onSearch}
-        defaultValue={searchInput}
+    <div className="header__center search">
+      <input
+        name="search"
+        label="Поиск продуктов?"
+        type="text"
+        className="search"
+        onChange={onChange}
       />
-    </Space>
+    </div>
   );
 };
 

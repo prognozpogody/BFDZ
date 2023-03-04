@@ -28,7 +28,7 @@ export const HeaderProject = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const TOKEN = localStorage.getItem("token");
+ 
 
   const handleRoute = (event) => {
     navigate(event.key);
@@ -39,12 +39,12 @@ export const HeaderProject = () => {
   };
 
   useEffect(() => {
+     const TOKEN = localStorage.getItem("token");
     if (!TOKEN && location.pathname !== "/signup") {
       dispatch(changeModalState(true));
       navigate("/");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigate, TOKEN]);
+  }, [navigate, location.pathname, dispatch]);
 
   return (
     <Header

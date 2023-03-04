@@ -1,10 +1,6 @@
 import { Button, Form, Input } from "antd";
-import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
-import { registration, authorization } from "../Redux/thunk";
-import { Spinner } from "../Components/Spinner/Spinner";
-import { setUser } from "../Redux/slices/userSlice";
+import { registration, authorization } from "../Redux/slices/thunk";
 
 const layout = {
   labelCol: {
@@ -27,39 +23,19 @@ const validateMessages = {
 
 export const SignUp = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  // Результат обработки формы регистрации, происходит регистрация и
-  // авторизация, после редирект на продукты
-  const {
-    mutateAsync: mutateRegistration,
-    isLoading,
-    isError,
-    error,
-  } = useMutation({
-    mutationFn: (values) => dispatch(registration(values)),
-  });
 
-  const { mutateAsync: mutateAuthorization } = useMutation({
-    mutationFn: (values) => {
-      return dispatch(authorization(values));
-    },
-  });
-  // TODO если человек решит зарегестрироваться с уже существующим аккаунтом или еще чего
-  // тогда первый запрос будет error
-  // тебе надо responce первого запроса и оттуда values передать в авторизейшн
   const onFinish = async (values) => {
-    await mutateRegistration(values).then(async () => {
-      const res = await mutateAuthorization({
-        email: values.email,
-        password: values.password,
-      });
-      dispatch(setUser(res.payload));
-      navigate("/products");
-    });
+    const resReg = await dispatch(registration(values));
+    console.log(resReg);
+    if (!resReg.error) {
+      await dispatch(
+        authorization({
+          email: values.email,
+          password: values.password,
+        })
+      );
+    }
   };
-
-  if (isLoading) return <Spinner />;
-  if (isError) return <p>Error happend: {error.message}</p>;
 
   return (
     <Form
@@ -114,5 +90,3 @@ export const SignUp = () => {
     </Form>
   );
 };
-
-

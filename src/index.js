@@ -10,7 +10,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { store } from "./Redux/store";
 import { Provider } from "react-redux";
 import { NotFound } from "./pages/404";
-import { Search } from "./pages/Search";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -41,10 +40,6 @@ const router = createBrowserRouter([
       //   path: "cart",
       //   element: <Cart />,
       // },
-      {
-        path: "search",
-        element: <Search />,
-      },
       {
         path: "*",
         element: <NotFound />,

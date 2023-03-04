@@ -27,5 +27,7 @@ export const getSearchProduct = async (values) => {
     headers: {
       authorization: "Bearer " + localStorage.getItem("token"),
     },
+   
   });
+   
 };
