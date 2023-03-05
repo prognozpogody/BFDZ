@@ -4,14 +4,23 @@ import { FormAuthorization } from "./Components/FormAuthorization/FormAuthorizat
 import { changeModalState } from "./Redux/slices/modalSlice";
 import "./App.css";
 import { ModalPortal } from "./Components/ModalPortal/ModalPortal";
-import { useNavigate, Outlet } from "react-router-dom";
-import { Button, Layout } from "antd";
+import { useNavigate, Outlet, useLocation, Navigate } from "react-router-dom";
+import { Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 
 function App() {
   const navigate = useNavigate();
   const modalOpen = useSelector((state) => state.modalOpen);
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  const TOKEN = localStorage.getItem("token");
+
+  if (TOKEN) {
+    if (location.pathname === "/") {
+      return <Navigate to="/main" />;
+    }
+  }
 
   return (
     <>
@@ -28,11 +37,10 @@ function App() {
           Зарегестрироваться
         </Button>
       </ModalPortal>
-      <Layout>
-        <HeaderProject />
-        <Outlet />
-        <FooterProject />
-      </Layout>
+
+      <HeaderProject />
+      <Outlet />
+      <FooterProject />
     </>
   );
 }

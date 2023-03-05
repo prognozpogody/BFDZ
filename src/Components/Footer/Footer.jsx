@@ -1,14 +1,5 @@
-import { Layout } from "antd";
-const { Footer } = Layout;
+import style from "./style.module.css";
 
 export const FooterProject = () => {
-  return (
-    <Footer
-      style={{
-        textAlign: "center",
-      }}
-    >
-      Ant Design ©2023 Created by Ant UED
-    </Footer>
-  );
+  return (<footer className={style.footer}>Футер</footer>);
 };
