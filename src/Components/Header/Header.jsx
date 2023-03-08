@@ -1,36 +1,38 @@
-import { useDispatch } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useEffect } from "react";
-import { changeModalState } from "../../Redux/slices/modalSlice";
-import { logOutUser } from "../../Redux/slices/userSlice";
-import { SearchInput } from "../SearchInput/SearchInput";
+import { useActions } from "../../hooks/useActions";
 import styles from "./style.module.css";
+import { useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export const HeaderProject = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const dispatch = useDispatch();
 
+  const { logOutUser, changeModalState } = useActions();
   const handleRoute = (event) => {
     navigate(event.key);
   };
   const handleLogOut = () => {
-    dispatch(logOutUser());
+    logOutUser();
     navigate("/");
   };
 
   useEffect(() => {
     const TOKEN = localStorage.getItem("token");
     if (!TOKEN && location.pathname !== "/signup") {
-      dispatch(changeModalState(true));
+      changeModalState(true);
       navigate("/");
     }
-  }, [navigate, location.pathname, dispatch]);
+  }, [navigate, location.pathname, changeModalState]);
 
   return (
     <header className={styles.Header}>
-      <SearchInput />
-      <div onClick={handleLogOut}>Выход</div>
+      <nav>
+        <a href="/products">Продукты</a>
+        <a href="/user">О пользователе</a>
+        <a href="#">Контакты</a>
+        <div id="indicator"></div>
+      </nav>
+      <button onClick={handleLogOut}>Выход</button>
     </header>
   );
 };

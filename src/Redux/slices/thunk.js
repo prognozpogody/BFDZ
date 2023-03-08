@@ -13,7 +13,6 @@ export const authorization = createAsyncThunk(
   async (values, { dispatch }) => {
     const responce = await axios.post("signin", values);
     localStorage.setItem("token", responce.data.token);
-    console.log(responce.data);
     dispatch(changeModalState(false));
     dispatch(setUser(responce.data));
   }

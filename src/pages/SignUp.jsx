@@ -1,6 +1,7 @@
+import { useActions } from "../hooks/useActions";
 import { Button, Form, Input } from "antd";
-import { useDispatch } from "react-redux";
-import { registration, authorization } from "../Redux/slices/thunk";
+import { useNavigate } from "react-router-dom";
+
 
 const layout = {
   labelCol: {
@@ -22,18 +23,18 @@ const validateMessages = {
 /* eslint-enable no-template-curly-in-string */
 
 export const SignUp = () => {
-  const dispatch = useDispatch();
+  const { registration, authorization } = useActions();
+  const navigate = useNavigate();
 
   const onFinish = async (values) => {
-    const resReg = await dispatch(registration(values));
-    console.log(resReg);
+    const resReg = await registration(values);
     if (!resReg.error) {
-      await dispatch(
-        authorization({
-          email: values.email,
-          password: values.password,
-        })
-      );
+      navigate("products");
+      await authorization({
+        email: values.email,
+        password: values.password,
+      });
+      
     }
   };
 

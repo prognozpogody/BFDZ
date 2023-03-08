@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { changeSearchFilter } from "../../Redux/slices/filterSlice";
-import { useNavigate } from "react-router-dom";
+import { useActions } from "../../hooks/useActions";
 import { useDebounce } from "../../hooks/useDebounce";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SearchInput = () => {
   const [searchInput, setSearchInput] = useState();
+  const { changeSearchFilter } = useActions();
   const debounceValue = useDebounce(searchInput, 750);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onChange = (value) => {
@@ -19,9 +18,8 @@ const SearchInput = () => {
   };
 
   useEffect(() => {
-    if (debounceValue) dispatch(changeSearchFilter(debounceValue));
-  }, [debounceValue, dispatch]);
-
+    if (debounceValue) changeSearchFilter(debounceValue);
+  }, [changeSearchFilter, debounceValue]);
 
   return (
     <div className="header__center search">

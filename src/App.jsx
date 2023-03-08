@@ -1,25 +1,24 @@
-import { HeaderProject } from "./Components/Header/Header";
+import "./App.css";
 import { FooterProject } from "./Components/Footer/Footer";
 import { FormAuthorization } from "./Components/FormAuthorization/FormAuthorization";
-import { changeModalState } from "./Redux/slices/modalSlice";
-import "./App.css";
+import { HeaderProject } from "./Components/Header/Header";
 import { ModalPortal } from "./Components/ModalPortal/ModalPortal";
-import { useNavigate, Outlet, useLocation, Navigate } from "react-router-dom";
+import { useActions } from "./hooks/useActions";
 import { Button } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { useNavigate, Outlet, useLocation, Navigate } from "react-router-dom";
 
 function App() {
   const navigate = useNavigate();
+  const { changeModalState } = useActions();
   const modalOpen = useSelector((state) => state.modalOpen);
-  const dispatch = useDispatch();
+
   const location = useLocation();
 
   const TOKEN = localStorage.getItem("token");
 
-  if (TOKEN) {
-    if (location.pathname === "/") {
-      return <Navigate to="/main" />;
-    }
+  if (TOKEN && location.pathname === "/") {
+    return <Navigate to="/products" />;
   }
 
   return (
@@ -30,7 +29,7 @@ function App() {
           type="primary"
           htmlType="button"
           onClick={() => {
-            dispatch(changeModalState(false));
+            changeModalState(false);
             navigate("/signup");
           }}
         >

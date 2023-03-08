@@ -1,13 +1,13 @@
+import { useActions } from "../../hooks/useActions";
 import { Button, Card, Space } from "antd";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../Redux/slices/cartSlice";
 
 const { Meta } = Card;
 
 export const CardList = ({ products }) => {
-  const dispatch = useDispatch();
+  const { addToCart } = useActions();
+
   const handleAddToCart = (id) => {
-    dispatch(addToCart({ id, isAdded: false, count: 1 }));
+    addToCart({ id, isAdded: false, count: 1 });
   };
 
   return (

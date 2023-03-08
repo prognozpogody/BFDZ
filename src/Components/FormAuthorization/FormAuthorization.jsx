@@ -1,14 +1,13 @@
+import { useActions } from "../../hooks/useActions";
 import { Input, Form, Button } from "antd";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { authorization } from "../../Redux/slices/thunk";
 
 export const FormAuthorization = () => {
+  const { authorization } = useActions();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const onFinish = async (values) => {
-    await dispatch(authorization(values));
+    await authorization(values);
     navigate("products");
   };
 
