@@ -1,8 +1,8 @@
 import "./App.css";
-import { FooterProject } from "./Components/Footer/Footer";
-import { FormAuthorization } from "./Components/FormAuthorization/FormAuthorization";
-import { HeaderProject } from "./Components/Header/Header";
-import { ModalPortal } from "./Components/ModalPortal/ModalPortal";
+import { FooterProject } from "./Components/footer/Footer";
+import { FormAuthorization } from "./Components/formAuthorization/FormAuthorization";
+import { HeaderProject } from "./Components/header/Header";
+import { ModalPortal } from "./Components/modalPortal/ModalPortal";
 import { useActions } from "./hooks/useActions";
 import { Button } from "antd";
 import { useSelector } from "react-redux";

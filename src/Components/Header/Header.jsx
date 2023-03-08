@@ -1,4 +1,5 @@
 import { useActions } from "../../hooks/useActions";
+import { Button } from "../ui/Button";
 import styles from "./style.module.css";
 import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -6,8 +7,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 export const HeaderProject = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
   const { logOutUser, changeModalState } = useActions();
+
   const handleRoute = (event) => {
     navigate(event.key);
   };
@@ -32,7 +33,9 @@ export const HeaderProject = () => {
         <a href="#">Контакты</a>
         <div id="indicator"></div>
       </nav>
-      <button onClick={handleLogOut}>Выход</button>
+      <Button onClick={handleLogOut} variant="orange">
+        Выход
+      </Button>
     </header>
   );
 };

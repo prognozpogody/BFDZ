@@ -1,8 +1,8 @@
 import { Layout } from "antd";
-import { CardList } from "../Components/CardList/CardList";
+import { CardList } from "../Components/cardList/CardList";
 import { useQuery } from "@tanstack/react-query";
-import { Spinner } from "../Components/Spinner/Spinner";
-import { getSearchProduct } from "../api/ProductsApi";
+import { Spinner } from "../Components/ui/spinner/Spinner";
+import { getSearchProduct } from "../api/productsApi";
 import { useSelector } from "react-redux";
 import { getSearchSelector } from "../Redux/slices/filterSlice";
 
