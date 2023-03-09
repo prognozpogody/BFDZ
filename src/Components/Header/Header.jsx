@@ -1,5 +1,5 @@
 import { useActions } from "../../hooks/useActions";
-import { Button } from "../ui/Button";
+import Button from "../ui/Button";
 import styles from "./style.module.css";
 import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -27,13 +27,13 @@ export const HeaderProject = () => {
 
   return (
     <header className={styles.Header}>
-      <nav>
-        <a href="/products">Продукты</a>
-        <a href="/user">О пользователе</a>
-        <a href="#">Контакты</a>
-        <div id="indicator"></div>
-      </nav>
-      <Button onClick={handleLogOut} variant="orange">
+      <a href="/user">
+        <Button variant="primary">Личный кабинет</Button>
+      </a>
+      <a href="/products">
+        <Button variant="primary">Продукты</Button>
+      </a>
+      <Button onClick={handleLogOut} variant="primary">
         Выход
       </Button>
     </header>

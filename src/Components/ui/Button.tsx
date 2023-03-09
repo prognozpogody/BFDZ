@@ -3,11 +3,11 @@ import React from "react";
 import { ButtonHTMLAttributes, FC, PropsWithChildren } from "react";
 
 interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: "orange" | "white";
+  variant: "primary" | "white" | "black";
   size?: "sm" | "md" | "lg";
 }
 
-export const Button: FC<PropsWithChildren<IButton>> = ({
+const Button: FC<PropsWithChildren<IButton>> = ({
   children,
   className,
   variant,
@@ -18,10 +18,11 @@ export const Button: FC<PropsWithChildren<IButton>> = ({
     <button
       {...rest}
       className={cn(
-        "rounded-xl font-medium shadow px-10 py-2 hover:shadow-lg transition duration-300 ease-in-out",
+        "rounded-lg font-medium shadow px-10 py-2 hover:shadow-lg transition duration-300 ease-in-out",
         {
-          "text-white bg-primary": variant === "orange",
+          "text-black bg-primary": variant === "primary",
           "text-primary bg-white": variant === "white",
+          "text-white bg-black": variant === "black",
           "px-5 py-2 text-sm": size === "sm",
         },
         className
@@ -31,3 +32,5 @@ export const Button: FC<PropsWithChildren<IButton>> = ({
     </button>
   );
 };
+
+export default Button;
