@@ -1,15 +1,16 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
 import { App } from "./App";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { SignUp } from "./pages/SignUp";
+import { store } from "./Redux/store";
+import "./index.css";
+import { NotFound } from "./pages/404";
+import { Cart } from "./pages/Cart";
 import { Products } from "./pages/Products";
+import { SignUp } from "./pages/SignUp";
 import { User } from "./pages/User";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { store } from "./Redux/store";
+import React from "react";
+import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
-import { NotFound } from "./pages/404";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,10 +37,10 @@ const router = createBrowserRouter([
         path: "user",
         element: <User />,
       },
-      // {
-      //   path: "cart",
-      //   element: <Cart />,
-      // },
+      {
+        path: "cart",
+        element: <Cart />,
+      },
       {
         path: "*",
         element: <NotFound />,

@@ -8,10 +8,6 @@
   width: 100%;
   z-index: 1;
   color: #949494;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: bold;
-  background-image: url(../../image/header.png);
-  background-size: cover;
-  box-shadow: 3px 3px 5px rgb(0 0 0 / 50%);
 }
 

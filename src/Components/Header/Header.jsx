@@ -9,9 +9,6 @@ export const HeaderProject = () => {
   const location = useLocation();
   const { logOutUser, changeModalState } = useActions();
 
-  const handleRoute = (event) => {
-    navigate(event.key);
-  };
   const handleLogOut = () => {
     logOutUser();
     navigate("/");
@@ -27,11 +24,14 @@ export const HeaderProject = () => {
 
   return (
     <header className={styles.Header}>
+      <a href="/products">
+        <Button variant="primary">Продукты</Button>
+      </a>
       <a href="/user">
         <Button variant="primary">Личный кабинет</Button>
       </a>
-      <a href="/products">
-        <Button variant="primary">Продукты</Button>
+      <a href="/cart">
+        <Button variant="primary">Корзина</Button>
       </a>
       <Button onClick={handleLogOut} variant="primary">
         Выход
