@@ -1,5 +1,5 @@
+import { initState, InitStateStore } from "../initialState";
 import { createSlice } from "@reduxjs/toolkit";
-import { initState } from "../initialState";
 
 const userSlice = createSlice({
   name: "user",
@@ -18,7 +18,7 @@ const userSlice = createSlice({
 });
 
 export const { setUser, logOutUser } = userSlice.actions;
-export const getUserSelector = (state) => state.user;
-export const getTokenSelector = (state) => state.user.token;
-export const getUserIdSelector = (state) => state.user._id;
+export const getUserSelector = (state: InitStateStore) => state.user;
+export const getTokenSelector = (state: InitStateStore) => state.user.token;
+export const getUserIdSelector = (state: InitStateStore) => state.user._id;
 export const userReducer = userSlice.reducer;

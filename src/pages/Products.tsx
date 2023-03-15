@@ -1,16 +1,17 @@
-import { Layout } from "antd";
 import { CardList } from "../Components/cardList/CardList";
-import { useQuery } from "@tanstack/react-query";
 import { Spinner } from "../Components/ui/spinner/Spinner";
-import { getSearchProduct } from "../api/productsApi";
-import { useSelector } from "react-redux";
 import { getSearchSelector } from "../Redux/slices/filterSlice";
+import { getSearchProduct } from "../api/productsApi";
+import { useQuery } from "@tanstack/react-query";
+import { Layout } from "antd";
+import React from "react";
+import { useSelector } from "react-redux";
 
 const { Content } = Layout;
 
 export const Products = () => {
   const searchState = useSelector(getSearchSelector);
-  const { data, isLoading, isError, error } = useQuery({
+  const { data, isLoading, isError, error } = useQuery<any, Error>({
     queryKey: ["getSearch", searchState],
     queryFn: async () => {
       return await getSearchProduct(searchState);

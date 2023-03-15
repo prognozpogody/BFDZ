@@ -1,15 +1,16 @@
 import { useActions } from "../../hooks/useActions";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useState, useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const SearchInput = () => {
-  const [searchInput, setSearchInput] = useState();
+  const [searchInput, setSearchInput] = useState("");
   const { changeSearchFilter } = useActions();
   const debounceValue = useDebounce(searchInput, 750);
   const navigate = useNavigate();
 
-  const onChange = (value) => {
+  const onChange = (value: any) => {
     setSearchInput(value.target.value);
     navigate({
       pathname: "/products",
@@ -23,13 +24,7 @@ const SearchInput = () => {
 
   return (
     <div className="header__center search">
-      <input
-        name="search"
-        label="Поиск продуктов?"
-        type="text"
-        className="search"
-        onChange={onChange}
-      />
+      <input name="search" type="text" className="search" onChange={onChange} />
     </div>
   );
 };

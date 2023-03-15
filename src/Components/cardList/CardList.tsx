@@ -1,12 +1,22 @@
 import { useActions } from "../../hooks/useActions";
 import { Button, Card, Space } from "antd";
+import React from "react";
+
+interface CardListProps {
+  products: {
+    name: string;
+    _id: string;
+    description: string;
+    pictures: string;
+  }[];
+}
 
 const { Meta } = Card;
 
-export const CardList = ({ products }) => {
+export const CardList = ({ products }: CardListProps) => {
   const { addToCart } = useActions();
 
-  const handleAddToCart = (id) => {
+  const handleAddToCart = (id: string) => {
     addToCart({ id, isAdded: false, count: 1 });
   };
 

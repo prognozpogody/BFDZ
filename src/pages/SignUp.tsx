@@ -1,5 +1,7 @@
+import { FinishValuesType } from "../Components/formAuthorization/FormAuthorization";
 import { useActions } from "../hooks/useActions";
 import { Button, Form, Input } from "antd";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -26,15 +28,16 @@ export const SignUp = () => {
   const { registration, authorization } = useActions();
   const navigate = useNavigate();
 
-  const onFinish = async (values) => {
+  const onFinish = async (values: FinishValuesType) => {
     const resReg = await registration(values);
+    console.log(resReg);
+
     if (!resReg.error) {
       navigate("products");
       await authorization({
         email: values.email,
         password: values.password,
       });
-      
     }
   };
 

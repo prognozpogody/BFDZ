@@ -1,5 +1,5 @@
+import { initState, InitStateStore } from "../initialState";
 import { createSlice } from "@reduxjs/toolkit";
-import { initState } from "../initialState";
 
 const filterSlice = createSlice({
   name: "filter",
@@ -12,5 +12,5 @@ const filterSlice = createSlice({
 });
 
 export const { changeSearchFilter } = filterSlice.actions;
-export const getSearchSelector = (state) => state.filter.search;
+export const getSearchSelector = (state: InitStateStore) => state.filter.search;
 export const filterReducer = filterSlice.reducer;

@@ -1,6 +1,7 @@
-import { Descriptions } from "antd";
-import { useSelector } from "react-redux";
 import { getUserSelector } from "../Redux/slices/userSlice";
+import { Descriptions } from "antd";
+import React from "react";
+import { useSelector } from "react-redux";
 
 export const User = () => {
   const userInfo = useSelector(getUserSelector);

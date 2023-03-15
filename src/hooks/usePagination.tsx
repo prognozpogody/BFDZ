@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const usePagination = (data, cnt) => {
+export const usePagination = (data: any[], cnt: number) => {
   const [currentPage, setCurrentPage] = useState(1);
   const maxPage = Math.ceil(data.length / cnt);
 
@@ -12,7 +12,7 @@ export const usePagination = (data, cnt) => {
     let prevPage = Math.max(currentPage - 1, 1);
     setCurrentPage(prevPage);
   };
-  const step = (page) => {
+  const step = (page: number) => {
     setCurrentPage(page);
   };
   const setPageData = () => {

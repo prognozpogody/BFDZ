@@ -14,8 +14,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/api/api.helper.js",
-    "src/hooks/useActions.js",
+    "src/api/api.helper.ts",
+    "src/hooks/useActions.tsx",
   
   ],
   "exclude": ["node_modules"]

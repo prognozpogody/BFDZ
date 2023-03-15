@@ -1,12 +1,18 @@
 import { useActions } from "../../hooks/useActions";
 import { Input, Form, Button } from "antd";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+
+export type FinishValuesType = {
+  email: string;
+  password: string;
+};
 
 export const FormAuthorization = () => {
   const { authorization } = useActions();
   const navigate = useNavigate();
 
-  const onFinish = async (values) => {
+  const onFinish = async (values: FinishValuesType) => {
     await authorization(values);
     navigate("products");
   };

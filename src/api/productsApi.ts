@@ -1,6 +1,5 @@
 import axios from "../axios/index";
 
-
 export const getProducts = async () => {
   return await axios
     .get("products", {
@@ -13,7 +12,7 @@ export const getProducts = async () => {
     });
 };
 
-export const getProductByID = async (id) => {
+export const getProductByID = async (id: string) => {
   return await axios.get(`products/${id}`, {
     headers: {
       authorization: "Bearer " + localStorage.getItem("token"),
@@ -21,13 +20,10 @@ export const getProductByID = async (id) => {
   });
 };
 
-
-export const getSearchProduct = async (values) => {
+export const getSearchProduct = async (values: string) => {
   return await axios.get(`products/search?query=${values}`, {
     headers: {
       authorization: "Bearer " + localStorage.getItem("token"),
     },
-   
   });
-   
 };
