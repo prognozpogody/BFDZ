@@ -4,14 +4,17 @@ import { FormAuthorization } from "./Components/formAuthorization/FormAuthorizat
 import { HeaderProject } from "./Components/header/Header";
 import { ModalPortal } from "./Components/modalPortal/ModalPortal";
 import { useActions } from "./hooks/useActions";
-import { Button } from "antd";
+import { Button } from "./Components/ui/Button";
+import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, Outlet, useLocation, Navigate } from "react-router-dom";
 
 function App() {
   const navigate = useNavigate();
   const { changeModalState } = useActions();
-  const modalOpen = useSelector((state) => state.modalOpen);
+  const modalOpen = useSelector(
+    (state: { modalOpen: boolean }) => state.modalOpen
+  );
 
   const location = useLocation();
 
@@ -26,8 +29,7 @@ function App() {
       <ModalPortal isOpen={modalOpen}>
         <FormAuthorization />
         <Button
-          type="primary"
-          htmlType="button"
+          variant="primary"
           onClick={() => {
             changeModalState(false);
             navigate("/signup");

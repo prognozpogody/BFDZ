@@ -29,16 +29,8 @@ export const SignUp = () => {
   const navigate = useNavigate();
 
   const onFinish = async (values: FinishValuesType) => {
-    const resReg = await registration(values);
-    console.log(resReg);
-
-    if (!resReg.error) {
-      navigate("products");
-      await authorization({
-        email: values.email,
-        password: values.password,
-      });
-    }
+    const responce = await registration(values);
+    console.log(responce);
   };
 
   return (

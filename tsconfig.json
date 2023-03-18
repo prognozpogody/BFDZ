@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-	"jsx": "react",
+    "jsx": "react",
     "target": "ES2020",
     "module": "CommonJS",
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
@@ -15,8 +15,7 @@
     "**/*.ts",
     "**/*.tsx",
     "src/api/api.helper.ts",
-    "src/hooks/useActions.tsx",
-  
+    "src/hooks/useActions.tsx"
   ],
   "exclude": ["node_modules"]
 }

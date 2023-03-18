@@ -11,11 +11,14 @@ const colors = {
   "bg-color": "#F2F2F5",
   aqua: "#268697",
   red: twColors.red[400],
+  grass: "#D1E2A0",
+  grassIntense: "#B0CD58",
 };
 
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}", "./pages/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    twColors,
     colors,
     extend: {
       fontSize: {

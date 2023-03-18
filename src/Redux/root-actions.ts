@@ -1,9 +1,12 @@
 import { addToCart } from "./slices/cartSlice";
 import { changeSearchFilter } from "./slices/filterSlice";
 import { changeModalState } from "./slices/modalSlice";
-import { setUser, logOutUser } from "./slices/userSlice";
-import * as thunk from "./slices/thunk";
-
+import {
+  setUser,
+  logOutUser,
+  authorization,
+  registration,
+} from "./slices/userSlice";
 
 export const rootActions = {
   setUser,
@@ -11,5 +14,6 @@ export const rootActions = {
   logOutUser,
   changeSearchFilter,
   addToCart,
-  ...thunk,
+  authorization,
+  registration,
 };
