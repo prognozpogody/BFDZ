@@ -7,6 +7,7 @@ interface CardListProps {
     _id: string;
     description: string;
     pictures: string;
+    price: string;
   }[];
 }
 
@@ -18,34 +19,33 @@ export const CardList = ({ products }: CardListProps) => {
   };
 
   return (
-    <div className=" flex flex-wrap justify-center ">
-      {products &&
-        products.map((product) => {
-          return (
-            <div className="flex justify-center p-2 ">
-              <div className="block max-w-sm rounded-lg shadow-lg bg-grassIntense/70">
-                <a href="#!">
-                  <img className="p-3" src={product.pictures} alt={product.name} />
-                </a>
-                <div className="p-6">
-                  <h5 className="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
-                    {product.name}
-                  </h5>
-                  <p className="mb-4 text-base text-neutral-600 dark:text-neutral-200">
-                    {product.description}
-                  </p>
-                  <button
-                    type="button"
-                    className="inline-block rounded bg-primary px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-black shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-                    onClick={() => handleAddToCart(product._id)}
-                  >
-                    В корзину
-                  </button>
-                </div>
+    <div>
+      <div className=" mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+        <div className=" grid grid-cols-1 gap-y-5 gap-x-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+          {products.map((product) => (
+            <a key={product._id} href={product._id} className="group">
+              <div className=" max-h-xs max-w-xs aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
+                <img
+                  src={product.pictures}
+                  alt={product.name}
+                  className="h-full w-full object-cover object-center group-hover:opacity-75"
+                />
               </div>
-            </div>
-          );
-        })}
+              <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
+              <p className="mt-1 text-lg font-medium text-gray-900">
+                {product.price}
+              </p>
+              <button
+                type="button"
+                className="inline-block rounded bg-primary px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-black shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+                onClick={() => handleAddToCart(product._id)}
+              >
+                В корзину
+              </button>
+            </a>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
