@@ -1,9 +1,10 @@
 import { FinishValuesType } from "../../Components/formAuthorization/FormAuthorization.js";
 import axios from "../../axios/index";
 import { initState, InitStateStore } from "../initialState";
-import { changeModalState } from "./modalSlice";
+import { changeModalAuthorizationState } from "./modalSlice";
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
 
 export const registration = createAsyncThunk(
   "registration",
@@ -30,7 +31,7 @@ export const authorization = createAsyncThunk(
   async (values: FinishValuesType, { dispatch }) => {
     const responce = await axios.post("signin", values);
     localStorage.setItem("token", responce.data.token);
-    dispatch(changeModalState(false));
+    dispatch(changeModalAuthorizationState(false));
     dispatch(setUser(responce.data));
   }
 );

@@ -2,7 +2,7 @@ import { App } from "./App";
 import { store } from "./Redux/store";
 import "./index.css";
 import { NotFound } from "./pages/404";
-import { Cart } from "./pages/Cart";
+import { Cart } from "./Components/cart/Cart";
 import { Products } from "./pages/Products";
 import { SignUp } from "./pages/SignUp";
 import { User } from "./pages/User";

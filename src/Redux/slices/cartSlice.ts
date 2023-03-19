@@ -15,8 +15,6 @@ const cartSlice = createSlice({
 
 export const { addToCart } = cartSlice.actions;
 export const getCartSelector = (state: InitStateStore) => {
-  console.log(state);
-
   return state.cart;
 };
 export const cartReducer = cartSlice.reducer;

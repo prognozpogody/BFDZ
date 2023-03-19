@@ -1,16 +1,17 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { getInitState } from "./initialState";
 import { REDUX_SINK } from "../utils/constants";
-import { filterReducer } from "./slices/filterSlice";
-import { userReducer } from "./slices/userSlice";
-import { modalOpenReducer } from "./slices/modalSlice";
+import { getInitState } from "./initialState";
 import { cartReducer } from "./slices/cartSlice";
+import { filterReducer } from "./slices/filterSlice";
+import { modalOpenReducer } from "./slices/modalSlice";
+import { userReducer } from "./slices/userSlice";
+import { configureStore } from "@reduxjs/toolkit";
+
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     filter: filterReducer,
-    modalOpen: modalOpenReducer,
+    modal: modalOpenReducer,
     cart: cartReducer,
   },
   preloadedState: getInitState(),

@@ -23,7 +23,7 @@ const SearchInput = () => {
   }, [changeSearchFilter, debounceValue]);
 
   return (
-    <div className="header__center search">
+    <div className="mr-4 ">
       <input name="search" type="text" className="search" onChange={onChange} />
     </div>
   );

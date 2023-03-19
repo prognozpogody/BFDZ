@@ -1,19 +1,24 @@
 import "./App.css";
+import { Cart } from "./Components/cart/Cart";
 import { FooterProject } from "./Components/footer/Footer";
 import { FormAuthorization } from "./Components/formAuthorization/FormAuthorization";
 import { HeaderProject } from "./Components/header/Header";
 import { ModalPortal } from "./Components/modalPortal/ModalPortal";
-import { useActions } from "./hooks/useActions";
 import { Button } from "./Components/ui/Button";
+import { useActions } from "./hooks/useActions";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, Outlet, useLocation, Navigate } from "react-router-dom";
 
 function App() {
   const navigate = useNavigate();
-  const { changeModalState } = useActions();
-  const modalOpen = useSelector(
-    (state: { modalOpen: boolean }) => state.modalOpen
+  const { changeModalAuthorizationState } = useActions();
+  const modalAuthorizationOpen = useSelector(
+    (state: { modal: any; AuthorizationOpen: boolean }) =>
+      state.modal.AuthorizationOpen
+  );
+  const modalCartonOpen = useSelector(
+    (state: { modal: any; CartOpen: boolean }) => state.modal.CartOpen
   );
 
   const location = useLocation();
@@ -26,17 +31,21 @@ function App() {
 
   return (
     <>
-      <ModalPortal isOpen={modalOpen}>
+      <ModalPortal isOpen={modalAuthorizationOpen}>
         <FormAuthorization />
         <Button
           variant="primary"
           onClick={() => {
-            changeModalState(false);
+            changeModalAuthorizationState(false);
             navigate("/signup");
           }}
         >
           Зарегестрироваться
         </Button>
+      </ModalPortal>
+      
+      <ModalPortal isOpen={modalCartonOpen}>
+        <Cart />
       </ModalPortal>
 
       <HeaderProject />

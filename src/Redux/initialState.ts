@@ -14,7 +14,10 @@ interface UserType {
 }
 
 export interface InitStateStore {
-  modalOpen: boolean;
+  modal: {
+    AuthorizationOpen: boolean;
+    CartOpen: boolean;
+  };
   user: UserType;
   filter: {
     search: string;
@@ -24,7 +27,10 @@ export interface InitStateStore {
 }
 
 export const initState: InitStateStore = {
-  modalOpen: false,
+  modal: {
+    AuthorizationOpen: false,
+    CartOpen: false,
+  },
   user: {},
   filter: {
     search: " ",

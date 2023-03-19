@@ -3,15 +3,23 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const modalSlice = createSlice({
   name: "modalOpen",
-  initialState: initState.modalOpen,
+  initialState: initState.modal,
   reducers: {
-    changeModalState(state, action) {
-      state = action.payload;
+    changeModalAuthorizationState(state, action) {
+      state.AuthorizationOpen = action.payload;
+      return state;
+    },
+    changeModalCartState(state, action) {
+      state.CartOpen = action.payload;
       return state;
     },
   },
 });
 
 export const modalOpenReducer = modalSlice.reducer;
-export const { changeModalState } = modalSlice.actions;
-export const getModalSelector = (state: InitStateStore) => state.modalOpen;
+export const { changeModalAuthorizationState } = modalSlice.actions;
+export const { changeModalCartState } = modalSlice.actions;
+export const getModalSelectorAuthorization = (state: InitStateStore) =>
+  state.modal.AuthorizationOpen;
+export const getModalSelectorCart = (state: InitStateStore) =>
+  state.modal.CartOpen;

@@ -13,11 +13,17 @@ export const getProducts = async () => {
 };
 
 export const getProductByID = async (id: string) => {
-  return await axios.get(`products/${id}`, {
+  const responce = await axios.get(`products/${id}`, {
     headers: {
       authorization: "Bearer " + localStorage.getItem("token"),
     },
   });
+  return responce.data;
+};
+
+export const getProductsByIds = async (ids: string[]) => {
+  const responce = Promise.all(ids.map((id) => getProductByID(id)));
+  return responce;
 };
 
 export const getSearchProduct = async (values: string) => {
