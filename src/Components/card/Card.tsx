@@ -1,14 +1,13 @@
 import { useActions } from "../../hooks/useActions";
-import React from "react";
 import { CardListProps } from "../../types/products.interface";
-
+import React from "react";
 
 
 export const CardList = ({ products }: CardListProps) => {
   const { addToCart } = useActions();
 
   const handleAddToCart = (id: string) => {
-    addToCart({ id, isAdded: false, count: 1 });
+    addToCart({ id});
   };
 
   return (

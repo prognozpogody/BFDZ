@@ -17,8 +17,8 @@ const modalSlice = createSlice({
 });
 
 export const modalOpenReducer = modalSlice.reducer;
-export const { changeModalAuthorizationState } = modalSlice.actions;
-export const { changeModalCartState } = modalSlice.actions;
+export const { changeModalAuthorizationState, changeModalCartState } =
+  modalSlice.actions;
 export const getModalSelectorAuthorization = (state: InitStateStore) =>
   state.modal.AuthorizationOpen;
 export const getModalSelectorCart = (state: InitStateStore) =>

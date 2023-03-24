@@ -1,12 +1,28 @@
-import { initState, InitStateStore } from "../initialState";
-import { createSlice } from "@reduxjs/toolkit";
+import { CardCardType, initState, InitStateStore } from "../initialState";
+import { createSlice, current } from "@reduxjs/toolkit";
 
-const cartSlice = createSlice({
+export const cartSlice = createSlice({
   name: "cart",
   initialState: initState.cart,
   reducers: {
     addToCart(state, action) {
-      state.push(action.payload);
+      const itemInCart = current(state).find(
+        (item) => item.id === action.payload.id
+      );
+      const itemInCart2 = { ...itemInCart };
+      console.log(itemInCart);
+      console.log(itemInCart2);
+      if (itemInCart2.count) {
+        itemInCart2.count++;
+        console.log("++");
+        console.log(itemInCart2);
+      
+
+        return state;
+      }
+      console.log("добавка");
+
+      state.push({ id: action.payload.id, count: 1 });
 
       return state;
     },

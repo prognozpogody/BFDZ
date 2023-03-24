@@ -4,20 +4,22 @@ import { cartReducer } from "./slices/cartSlice";
 import { filterReducer } from "./slices/filterSlice";
 import { modalOpenReducer } from "./slices/modalSlice";
 import { userReducer } from "./slices/userSlice";
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
+const rootReducer = combineReducers({
+  user: userReducer,
+  filter: filterReducer,
+  modal: modalOpenReducer,
+  cart: cartReducer,
+});
 
 export const store = configureStore({
-  reducer: {
-    user: userReducer,
-    filter: filterReducer,
-    modal: modalOpenReducer,
-    cart: cartReducer,
-  },
+  reducer: rootReducer,
+  devTools: true,
   preloadedState: getInitState(),
 });
 
 store.subscribe(() => {
-  const currentState = store.getState();
-  window.localStorage.setItem(REDUX_SINK, JSON.stringify(currentState));
+  window.localStorage.setItem(REDUX_SINK, JSON.stringify(store.getState()));
 });
+

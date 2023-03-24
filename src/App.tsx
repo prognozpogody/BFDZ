@@ -17,10 +17,6 @@ function App() {
     (state: { modal: any; AuthorizationOpen: boolean }) =>
       state.modal.AuthorizationOpen
   );
-  const modalCartonOpen = useSelector(
-    (state: { modal: any; CartOpen: boolean }) => state.modal.CartOpen
-  );
-
   const location = useLocation();
 
   const TOKEN = localStorage.getItem("token");
@@ -44,9 +40,9 @@ function App() {
         </Button>
       </ModalPortal>
       
-      <ModalPortal isOpen={modalCartonOpen}>
+
         <Cart />
-      </ModalPortal>
+     
 
       <HeaderProject />
       <Outlet />

@@ -2,6 +2,7 @@ import { getCartSelector } from "../../Redux/slices/cartSlice";
 import { getModalSelectorCart } from "../../Redux/slices/modalSlice";
 import { getProductsByIds } from "../../api/productsApi";
 import { useActions } from "../../hooks/useActions";
+import { CardProducts } from "../../types/products.interface";
 import { Spinner } from "../ui/spinner/Spinner";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -9,18 +10,21 @@ import { useQuery } from "@tanstack/react-query";
 import React, { FC } from "react";
 import { Fragment } from "react";
 import { useSelector } from "react-redux";
-import { CardProducts } from "../../types/products.interface";
-
-
-
+import { useNavigate } from "react-router-dom";
 
 export const Cart: FC = () => {
   const { changeModalCartState } = useActions();
   const modalCartonOpen = useSelector(getModalSelectorCart);
   const productsInCart = useSelector(getCartSelector);
   const ids = productsInCart.map((value: any) => value.id);
+  const navigate = useNavigate();
 
-  const { data: products, isLoading, isError, error } = useQuery<any[], Error>({
+  const {
+    data: products,
+    isLoading,
+    isError,
+    error,
+  } = useQuery<any[], Error>({
     queryKey: ["getCartProducts", ids],
     queryFn: async () => {
       return await getProductsByIds(ids);
@@ -33,6 +37,18 @@ export const Cart: FC = () => {
   return (
     <Transition.Root show={modalCartonOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={changeModalCartState}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-in-out duration-500"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in-out duration-500"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+        </Transition.Child>
+
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
             <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
@@ -81,9 +97,7 @@ export const Cart: FC = () => {
                                   <div>
                                     <div className="flex justify-between text-base font-medium text-gray-900">
                                       <h3>
-                                        <a href={product._id}>
-                                          {product.name}
-                                        </a>
+                                        <a href={product._id}>{product.name}</a>
                                       </h3>
                                       <p className="ml-4">{product.price}р.</p>
                                     </div>
@@ -135,7 +149,10 @@ export const Cart: FC = () => {
                           <button
                             type="button"
                             className="font-medium pl-2 text-black hover:text-indigo-500"
-                            onClick={() => changeModalCartState(false)}
+                            onClick={() => {
+                              navigate("/products");
+                              changeModalCartState(false);
+                            }}
                           >
                             Продолжить шопинг
                             <span aria-hidden="true"> &rarr;</span>

@@ -1,10 +1,9 @@
 import { FinishValuesType } from "../../Components/formAuthorization/FormAuthorization.js";
-import axios from "../../axios/index";
+import axios from "../../api/axios";
 import { initState, InitStateStore } from "../initialState";
 import { changeModalAuthorizationState } from "./modalSlice";
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
 
 export const registration = createAsyncThunk(
   "registration",

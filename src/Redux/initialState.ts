@@ -1,6 +1,8 @@
 import { REDUX_SINK } from "../utils/constants";
 
-interface CardCardType {
+export interface CardCardType {
+  isAdded?: boolean;
+  count?: number;
   id?: string;
 }
 
