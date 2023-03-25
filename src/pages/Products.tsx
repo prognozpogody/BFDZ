@@ -1,4 +1,4 @@
-import { CardList } from "../Components/card/Card";
+import { CardList } from "../Components/card/CardList";
 import { Spinner } from "../Components/ui/spinner/Spinner";
 import { getSearchSelector } from "../Redux/slices/filterSlice";
 import { getSearchProduct } from "../api/productsApi";

@@ -4,7 +4,6 @@ import { Button, Form, Input } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-
 const layout = {
   labelCol: {
     span: 8,
@@ -25,12 +24,12 @@ const validateMessages = {
 /* eslint-enable no-template-curly-in-string */
 
 export const SignUp = () => {
-  const { registration, authorization } = useActions();
+  const { registration } = useActions();
   const navigate = useNavigate();
 
   const onFinish = async (values: FinishValuesType) => {
-    const responce = await registration(values);
-    console.log(responce);
+    await registration(values);
+    navigate("/products");
   };
 
   return (

@@ -1,10 +1,11 @@
+import { store } from "../Redux/store";
 import axios from "./axios";
 
 export const getProducts = async () => {
   return await axios
     .get("products", {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + store.getState().user.token,
       },
     })
     .then((response) => {
@@ -15,7 +16,7 @@ export const getProducts = async () => {
 export const getProductByID = async (id: string) => {
   const responce = await axios.get(`products/${id}`, {
     headers: {
-      authorization: "Bearer " + localStorage.getItem("token"),
+      authorization: "Bearer " + store.getState().user.token,
     },
   });
   return responce.data;
@@ -29,7 +30,7 @@ export const getProductsByIds = async (ids: string[]) => {
 export const getSearchProduct = async (values: string) => {
   return await axios.get(`products/search?query=${values}`, {
     headers: {
-      authorization: "Bearer " + localStorage.getItem("token"),
+      authorization: "Bearer " + store.getState().user.token,
     },
   });
 };

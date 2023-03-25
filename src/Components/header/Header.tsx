@@ -1,11 +1,13 @@
 import { getUserSelector } from "../../Redux/slices/userSlice";
 import { useActions } from "../../hooks/useActions";
+import { SearchInput } from "../ui/SearchInput";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment, useEffect } from "react";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { SearchInput } from "../ui/SearchInput";
+import { getCartSum } from "../../Redux/slices/cartSlice";
+
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -17,6 +19,9 @@ export const HeaderProject = () => {
   const { logOutUser, changeModalAuthorizationState, changeModalCartState } =
     useActions();
   const userInfo = useSelector(getUserSelector);
+  const productInCart = useSelector(getCartSum);
+
+  
 
   const handleLogOut = () => {
     logOutUser();
@@ -66,7 +71,7 @@ export const HeaderProject = () => {
 
           <button
             className="mr-4"
-            onClick={(e: any) => changeModalCartState(true)}
+            onClick={() => changeModalCartState(true)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -83,7 +88,7 @@ export const HeaderProject = () => {
               />
             </svg>
             <span className="absolute -mt-10 ml-2 rounded-full px-2 text-m bg-grassIntense">
-              3
+              {productInCart}
             </span>
           </button>
 

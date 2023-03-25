@@ -14,7 +14,7 @@ export interface CardProducts {
   discount: number;
   isPublished: boolean;
   likes: string[];
-  reviews: object[];
+  reviews: object;
   stock: number;
   tags: string[];
   updated_at: string;

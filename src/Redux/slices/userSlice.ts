@@ -5,22 +5,26 @@ import { changeModalAuthorizationState } from "./modalSlice";
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+
 export const registration = createAsyncThunk(
   "registration",
-  async (values: FinishValuesType, thunkApi) => {
+  async (values: FinishValuesType, { dispatch }) => {
     try {
       const responce = await axios.post("signup", values);
       if (responce) {
-        await authorization({
-          email: values.email,
-          password: values.password,
-        });
+         const responceReg = await axios.post("signin", {
+           email: values.email,
+           password: values.password,
+         });
+        localStorage.setItem("token", responceReg.data.token);
+        dispatch(changeModalAuthorizationState(false));
+        dispatch(setUser(responceReg.data));
       }
       return responce;
     } catch (error) {
       console.log(error);
 
-      return thunkApi.rejectWithValue(error);
+      return error;
     }
   }
 );

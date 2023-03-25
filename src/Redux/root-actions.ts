@@ -1,13 +1,24 @@
 import { addToCart } from "./slices/cartSlice";
 import { changeSearchFilter } from "./slices/filterSlice";
-import { changeModalAuthorizationState, changeModalCartState } from "./slices/modalSlice";
-import { setUser, logOutUser, authorization, registration } from "./slices/userSlice";
-
+import {
+  changeModalAuthorizationState,
+  changeModalCartState,
+  changeModalCardQuickviewsState,
+} from "./slices/modalSlice";
+import { addProductQuickviews } from "./slices/poductsSlice";
+import {
+  setUser,
+  logOutUser,
+  authorization,
+  registration,
+} from "./slices/userSlice";
 
 export const rootActions = {
+  addProductQuickviews,
   setUser,
   changeModalAuthorizationState,
   changeModalCartState,
+  changeModalCardQuickviewsState,
   logOutUser,
   changeSearchFilter,
   addToCart,

@@ -1,4 +1,5 @@
 import "./App.css";
+import { CardQuickviews } from "./Components/card/CardQuickviews";
 import { Cart } from "./Components/cart/Cart";
 import { FooterProject } from "./Components/footer/Footer";
 import { FormAuthorization } from "./Components/formAuthorization/FormAuthorization";
@@ -39,10 +40,8 @@ function App() {
           Зарегестрироваться
         </Button>
       </ModalPortal>
-      
-
-        <Cart />
-     
+      <Cart />
+      <CardQuickviews />
 
       <HeaderProject />
       <Outlet />
