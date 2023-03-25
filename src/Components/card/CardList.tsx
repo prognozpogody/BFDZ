@@ -24,7 +24,7 @@ export const CardList = ({ products }: CardListProps) => {
                     addProductQuickviews(product);
                     changeModalCardQuickviewsState(true);
                   }}
-                  className="h-full w-full object-cover object-center group-hover:opacity-75"
+                  className="h-full w-full max-w-[320px] max-h-[320px] min-w-[320px] min-h-[320px] rounded-[20px] object-contain object-center group-hover:opacity-75"
                 />
 
                 <button>

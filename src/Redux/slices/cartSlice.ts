@@ -1,47 +1,43 @@
+import { CardProducts } from "../../types/products.interface";
 import { CardType, getInitState, InitStateStore } from "../initialState";
-import { createSlice, current } from "@reduxjs/toolkit";
-
-
-// const cartAdapter = createEntityAdapter({
-//   selectId: (cart: any) => cart.id,
-//   sortComparer: (a, b) => a.title.localeCompare(b.title),
-// });
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export const cartSlice = createSlice({
   name: "cart",
   initialState: getInitState().cart,
 
   reducers: {
-    addToCart: (state: CardType[], action) => {
-      // if (current(state).find((item) => item.id === action.payload.id)) {
-      //   state.push(
-      //     current(state).find((item) => item.id === action.payload.id).count++
-      //   );
-      //   return state;
-      // }
-      const itemInCart: any = current(state).filter(
-        (el) => el.id === action.payload.id
+    addToCart: (state, action) => {
+      const itemInCart = state.find(
+        (item: any) => item.id === action.payload.id
       );
 
-      if (itemInCart.length !== 0) {
-        console.log(itemInCart);
-        console.log(itemInCart.id);
-        itemInCart[0].count++;
-        console.log("++");
+      if (itemInCart) {
+        itemInCart.count++;
         return state;
       }
-      console.log("добавка");
+
       state.push({ id: action.payload.id, isAdded: true, count: 1 });
-      return state;
+    },
+    removeToCart(state, action: PayloadAction<CardProducts>) {
+      return state.filter(
+        (products: { id: any }) => products.id !== action.payload._id
+      );
+    },
+
+    clearCart() {
+      return [];
+    },
+
+    changeIsChecked(state: CardType[], action) {
+      if (action.payload in state) {
+        state[action.payload].isAdded = !state[action.payload].isAdded;
+      }
     },
   },
 });
 
-export const { addToCart } = cartSlice.actions;
-export const getCartSelector = (state: InitStateStore) => {
-  return state.cart;
-};
-export const getCartSum = (state: InitStateStore) => {
-  return state.cart.length;
-};
+export const { addToCart, removeToCart, clearCart } = cartSlice.actions;
+export const getCartSelector = (state: InitStateStore) => state.cart;
+export const getCartSum = (state: InitStateStore) => state.cart.length;
 export const cartReducer = cartSlice.reducer;

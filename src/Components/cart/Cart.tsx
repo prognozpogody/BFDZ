@@ -10,14 +10,12 @@ import { useQuery } from "@tanstack/react-query";
 import React, { FC } from "react";
 import { Fragment } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 export const Cart: FC = () => {
-  const { changeModalCartState } = useActions();
+  const { changeModalCartState, removeToCart, clearCart } = useActions();
   const modalCartonOpen = useSelector(getModalSelectorCart);
   const productsInCart = useSelector(getCartSelector);
   const ids = productsInCart.map((value: any) => value.id);
-  const navigate = useNavigate();
 
   const {
     data: products,
@@ -114,6 +112,9 @@ export const Cart: FC = () => {
                                       <button
                                         type="button"
                                         className="font-medium text-indigo-600 hover:text-indigo-500"
+                                        onClick={() => {
+                                          removeToCart(product);
+                                        }}
                                       >
                                         Убрать
                                       </button>
@@ -144,20 +145,16 @@ export const Cart: FC = () => {
                         </a>
                       </div>
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
-                        <p>
-                          или
-                          <button
-                            type="button"
-                            className="font-medium pl-2 text-black hover:text-indigo-500"
-                            onClick={() => {
-                              navigate("/products");
-                              changeModalCartState(false);
-                            }}
-                          >
-                            Продолжить шопинг
-                            <span aria-hidden="true"> &rarr;</span>
-                          </button>
-                        </p>
+                        <button
+                          type="button"
+                          className="font-medium pl-2 text-black hover:text-indigo-500"
+                          onClick={() => {
+                            clearCart();
+                          }}
+                        >
+                          Очистить корзину
+                          <span aria-hidden="true"> &rarr;</span>
+                        </button>
                       </div>
                     </div>
                   </div>

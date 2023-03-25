@@ -1,4 +1,4 @@
-import { addToCart } from "./slices/cartSlice";
+import { addToCart, clearCart, removeToCart } from "./slices/cartSlice";
 import { changeSearchFilter } from "./slices/filterSlice";
 import {
   changeModalAuthorizationState,
@@ -14,6 +14,8 @@ import {
 } from "./slices/userSlice";
 
 export const rootActions = {
+  removeToCart,
+  clearCart,
   addProductQuickviews,
   setUser,
   changeModalAuthorizationState,

@@ -14,6 +14,7 @@ interface UserType {
   _id: string;
   name: string;
   avatar: string;
+  group: string;
 }
 
 export interface InitStateStore {
@@ -44,6 +45,7 @@ export const initState: InitStateStore = {
     _id: "",
     name: "",
     avatar: "",
+    group: "",
   },
   filter: {
     search: "",

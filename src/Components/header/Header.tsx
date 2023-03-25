@@ -37,16 +37,16 @@ export const HeaderProject = () => {
   }, [navigate, location.pathname, changeModalAuthorizationState]);
 
   return (
-    <nav className="flex-no-wrap fixed flex w-full items-center justify-between top-0 flex-wrap justify-start">
+    <nav className="fixed flex w-full top-0 bg-[url('/src/image/header.png')]  z-[1] ">
       <div className="flex w-full flex-wrap items-center justify-between px-6">
         <div className=" flex items-center ">
-          <a className="mt-2 mr-2 flex " href="/">
+          <a className=" flex " href="/">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
-              stroke="#76EAD7"
+              stroke="#3C786F"
               className="w-12 h-12"
             >
               <path
