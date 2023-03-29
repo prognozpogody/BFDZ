@@ -2,7 +2,7 @@ import { CardProducts } from "../types/products.interface";
 import { REDUX_SINK } from "../utils/constants";
 
 export interface CardType {
-  isAdded: boolean;
+  isCheck: boolean;
   count: number;
   id: string;
 }
@@ -64,13 +64,15 @@ export const initState: InitStateStore = {
     discount: 0,
     isPublished: false,
     likes: [],
-    // TODO: тут с ревью че то, чекнуть когда до них дойдем
     reviews: {},
     stock: 0,
     tags: [""],
     updated_at: "",
     wight: "",
     __v: 0,
+    isCheck: true,
+    count: 0,
+    id: "",
   },
 };
 

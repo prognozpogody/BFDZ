@@ -1,9 +1,9 @@
 import { getCartSelector } from "../../Redux/slices/cartSlice";
 import { getModalSelectorCart } from "../../Redux/slices/modalSlice";
-import { getProductsByIds } from "../../api/productsApi";
+import { getProductsInCart } from "../../api/productsApi";
 import { useActions } from "../../hooks/useActions";
 import { CardProducts } from "../../types/products.interface";
-import { Spinner } from "../ui/spinner/Spinner";
+import { totalPrice } from "../../utils/functions";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
@@ -12,25 +12,34 @@ import { Fragment } from "react";
 import { useSelector } from "react-redux";
 
 export const Cart: FC = () => {
-  const { changeModalCartState, removeToCart, clearCart } = useActions();
+  const {
+    changeModalCartState,
+    removeToCart,
+    clearCart,
+    incrementProduct,
+    dicrementProduct,
+  } = useActions();
   const modalCartonOpen = useSelector(getModalSelectorCart);
   const productsInCart = useSelector(getCartSelector);
-  const ids = productsInCart.map((value: any) => value.id);
 
   const {
     data: products,
-    isLoading,
     isError,
     error,
-  } = useQuery<any[], Error>({
-    queryKey: ["getCartProducts", ids],
+  } = useQuery<CardProducts[], Error>({
+    queryKey: ["getCartProducts", productsInCart],
     queryFn: async () => {
-      return await getProductsByIds(ids);
+      return await getProductsInCart(productsInCart);
     },
   });
 
-  if (isLoading) return <Spinner />;
+  let totalPriceOfAll = 0;
+  products?.forEach(({ count, price, discount }) => {
+    totalPriceOfAll += totalPrice(count, price, discount);
+  });
+
   if (isError) return <p>Error happend: {error.message}</p>;
+  console.log();
 
   return (
     <Transition.Root show={modalCartonOpen} as={Fragment}>
@@ -81,48 +90,85 @@ export const Cart: FC = () => {
                       <div className="mt-8">
                         <div className="flow-root">
                           <ul className="-my-6 divide-y divide-gray-200">
-                            {products.map((product: CardProducts) => (
-                              <li key={product._id} className="flex py-6">
-                                <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                  <img
-                                    src={product.pictures}
-                                    alt={product.name}
-                                    className="h-full w-full object-cover object-center"
-                                  />
-                                </div>
-
-                                <div className="ml-4 flex flex-1 flex-col">
-                                  <div>
-                                    <div className="flex justify-between text-base font-medium text-gray-900">
-                                      <h3>
-                                        <a href={product._id}>{product.name}</a>
-                                      </h3>
-                                      <p className="ml-4">{product.price}р.</p>
-                                    </div>
-                                    <p className="mt-1 text-sm text-gray-500">
-                                      В наличии {product.stock}шт.
-                                    </p>
+                            {products?.length !== 0 ? (
+                              products?.map((product: CardProducts) => (
+                                <li key={product._id} className="flex py-6">
+                                  <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                    <img
+                                      src={product.pictures}
+                                      alt={product.name}
+                                      className="h-full w-full object-cover object-center"
+                                    />
                                   </div>
-                                  <div className="flex flex-1 items-end justify-between text-sm">
-                                    <p className="text-gray-500">
-                                      Вес {product.wight}
-                                    </p>
 
-                                    <div className="flex">
-                                      <button
-                                        type="button"
-                                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                                        onClick={() => {
-                                          removeToCart(product);
-                                        }}
-                                      >
-                                        Убрать
-                                      </button>
+                                  <div className="ml-4 flex flex-col">
+                                    <div>
+                                      <div className="flex items-center text-base font-medium text-gray-900">
+                                        <h3>
+                                          <a href={product._id}>
+                                            {product.name}
+                                          </a>
+                                        </h3>
+                                        <button
+                                          type="button"
+                                          className="w-10 h-10 font-medium rounded-md border border-transparent bg-primary"
+                                          onClick={() => {
+                                            dicrementProduct(product._id);
+                                          }}
+                                        >
+                                          -
+                                        </button>
+                                        <p className="">
+                                          {totalPrice(
+                                            product.count,
+                                            product.price,
+                                            product.discount
+                                          )}
+                                          р.
+                                        </p>
+                                        <button
+                                          type="button"
+                                          disabled={
+                                            product.count === product.stock
+                                          }
+                                          className="w-10 h-10 font-medium rounded-md border border-transparent bg-primary"
+                                          onClick={() =>
+                                            incrementProduct(product._id)
+                                          }
+                                        >
+                                          +
+                                        </button>
+                                      </div>
+
+                                      <p className="mt-1 text-sm text-gray-500">
+                                        В наличии {product.stock}шт.
+                                      </p>
+                                    </div>
+                                    <div className="flex flex-1 items-end justify-between text-sm">
+                                      <p className="text-gray-500">
+                                        Вес {product.wight}
+                                      </p>
+
+                                      <div className="flex">
+                                        <button
+                                          type="button"
+                                          className="font-medium text-indigo-600 hover:text-indigo-500"
+                                          onClick={() => {
+                                            removeToCart(product);
+                                          }}
+                                        >
+                                          Убрать
+                                        </button>
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
-                              </li>
-                            ))}
+                                </li>
+                              ))
+                            ) : (
+                              <p className="pt-10 text-lg">
+                                Ваша корзина пуста, милорд.
+                              </p>
+                            )}
                           </ul>
                         </div>
                       </div>
@@ -131,7 +177,7 @@ export const Cart: FC = () => {
                     <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Итого</p>
-                        <p>Р 262.00</p>
+                        <p>{totalPriceOfAll}</p>
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">
                         Оформить заказ

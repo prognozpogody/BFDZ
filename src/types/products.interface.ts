@@ -20,4 +20,9 @@ export interface CardProducts {
   updated_at: string;
   wight: string;
   __v: number;
+  isCheck: boolean;
+  count: number;
+  id: string;
 }
+
+

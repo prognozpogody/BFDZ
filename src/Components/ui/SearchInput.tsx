@@ -15,7 +15,9 @@ const SearchInput = () => {
   const debounceValue = useDebounce(searchInput, 750);
   const navigate = useNavigate();
 
-  const onChange = (event: any) => {
+  const onChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     const searchValue = event.target.value;
     setSearchInput(event.target.value);
     if (searchValue) {

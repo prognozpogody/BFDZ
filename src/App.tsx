@@ -6,6 +6,8 @@ import { FormAuthorization } from "./Components/formAuthorization/FormAuthorizat
 import { HeaderProject } from "./Components/header/Header";
 import { ModalPortal } from "./Components/modalPortal/ModalPortal";
 import { Button } from "./Components/ui/Button";
+import { getModalSelectorAuthorization } from "./Redux/slices/modalSlice";
+import { store } from "./Redux/store";
 import { useActions } from "./hooks/useActions";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -14,15 +16,10 @@ import { useNavigate, Outlet, useLocation, Navigate } from "react-router-dom";
 function App() {
   const navigate = useNavigate();
   const { changeModalAuthorizationState } = useActions();
-  const modalAuthorizationOpen = useSelector(
-    (state: { modal: any; AuthorizationOpen: boolean }) =>
-      state.modal.AuthorizationOpen
-  );
+  const modalAuthorizationOpen = useSelector(getModalSelectorAuthorization);
   const location = useLocation();
 
-  const TOKEN = localStorage.getItem("token");
-
-  if (TOKEN && location.pathname === "/") {
+  if (store.getState().user.token && location.pathname === "/") {
     return <Navigate to="/products" />;
   }
 

@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useSelector } from "react-redux";
 
+
 export const Products = () => {
   const searchState = useSelector(getSearchSelector);
   const { data, isLoading, isError, error } = useQuery<any, Error>({

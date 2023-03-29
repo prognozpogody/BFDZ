@@ -1,3 +1,4 @@
+import { getCartSum } from "../../Redux/slices/cartSlice";
 import { getUserSelector } from "../../Redux/slices/userSlice";
 import { useActions } from "../../hooks/useActions";
 import { SearchInput } from "../ui/SearchInput";
@@ -6,8 +7,6 @@ import { Fragment, useEffect } from "react";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { getCartSum } from "../../Redux/slices/cartSlice";
-
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -20,8 +19,7 @@ export const HeaderProject = () => {
     useActions();
   const userInfo = useSelector(getUserSelector);
   const productInCart = useSelector(getCartSum);
-
-  
+  const TOKEN = localStorage.getItem("token");
 
   const handleLogOut = () => {
     logOutUser();
@@ -29,12 +27,11 @@ export const HeaderProject = () => {
   };
 
   useEffect(() => {
-    const TOKEN = localStorage.getItem("token");
     if (!TOKEN && location.pathname !== "/signup") {
       changeModalAuthorizationState(true);
       navigate("/");
     }
-  }, [navigate, location.pathname, changeModalAuthorizationState]);
+  }, [navigate, location.pathname, changeModalAuthorizationState, TOKEN]);
 
   return (
     <nav className="fixed flex w-full top-0 bg-[url('/src/image/header.png')]  z-[1] ">
@@ -59,7 +56,7 @@ export const HeaderProject = () => {
         </div>
 
         <div className="relative flex items-center">
-          <SearchInput/>
+          <SearchInput />
           <a
             className="mr-4 rounded-md bg-grass px-3.5 py-2.5 text-sm font-semibold text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             href="/products"
@@ -69,10 +66,7 @@ export const HeaderProject = () => {
 
           {/* Корзина */}
 
-          <button
-            className="mr-4"
-            onClick={() => changeModalCartState(true)}
-          >
+          <button className="mr-4" onClick={() => changeModalCartState(true)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
