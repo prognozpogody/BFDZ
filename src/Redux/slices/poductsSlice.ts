@@ -1,9 +1,11 @@
-import { initState, InitStateStore } from "../initialState";
+import { CardProducts } from "../../types/products.interface";
+import { getInitState, InitStateStore } from "../initialState";
 import { createSlice } from "@reduxjs/toolkit";
+
 
 export const productsSlice = createSlice({
   name: "products",
-  initialState: initState.products,
+  initialState: getInitState().products as CardProducts,
 
   reducers: {
     addProductQuickviews: (state, action) => {

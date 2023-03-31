@@ -25,4 +25,8 @@ export interface CardProducts {
   id: string;
 }
 
-
+export interface CardType {
+  isCheck: boolean;
+  count: number;
+  id: string;
+}

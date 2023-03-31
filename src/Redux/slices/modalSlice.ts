@@ -1,21 +1,21 @@
-import { initState, InitStateStore } from "../initialState";
+import { Modal } from "../../types/modal.interface";
+import { getInitState, InitStateStore } from "../initialState";
 import { createSlice } from "@reduxjs/toolkit";
-
 
 const modalSlice = createSlice({
   name: "modalOpen",
-  initialState: initState.modal,
+  initialState: getInitState() as Modal,
   reducers: {
     changeModalAuthorizationState(state, action) {
-      state.AuthorizationOpen = action.payload;
+      state.authorizationOpen = action.payload;
       return state;
     },
     changeModalCartState(state, action) {
-      state.CartOpen = action.payload;
+      state.cartOpen = action.payload;
       return state;
     },
     changeModalCardQuickviewsState(state, action) {
-      state.CardQuickviews = action.payload;
+      state.cardQuickviews = action.payload;
       return state;
     },
   },
@@ -28,8 +28,8 @@ export const {
   changeModalCardQuickviewsState,
 } = modalSlice.actions;
 export const getModalSelectorAuthorization = (state: InitStateStore) =>
-  state.modal.AuthorizationOpen;
+  state.modal.authorizationOpen;
 export const getModalSelectorCart = (state: InitStateStore) =>
-  state.modal.CartOpen;
+  state.modal.cartOpen;
 export const getModalSelectorCardQuickviews = (state: InitStateStore) =>
-  state.modal.CardQuickviews;
+  state.modal.cardQuickviews;

@@ -1,10 +1,10 @@
 import { FinishValuesType } from "../../Components/formAuthorization/FormAuthorization.js";
 import axios from "../../api/axios";
-import { initState, InitStateStore } from "../initialState";
+import { UserType } from "../../types/user.interface.js";
+import { getInitState, InitStateStore } from "../initialState";
 import { changeModalAuthorizationState } from "./modalSlice";
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
 
 export const registration = createAsyncThunk(
   "registration",
@@ -12,10 +12,10 @@ export const registration = createAsyncThunk(
     try {
       const responce = await axios.post("signup", values);
       if (responce) {
-         const responceReg = await axios.post("signin", {
-           email: values.email,
-           password: values.password,
-         });
+        const responceReg = await axios.post("signin", {
+          email: values.email,
+          password: values.password,
+        });
         localStorage.setItem("token", responceReg.data.token);
         dispatch(changeModalAuthorizationState(false));
         dispatch(setUser(responceReg.data));
@@ -41,7 +41,7 @@ export const authorization = createAsyncThunk(
 
 const userSlice = createSlice({
   name: "user",
-  initialState: initState.user,
+  initialState: getInitState().user as UserType,
   reducers: {
     setUser(state, action) {
       state = action.payload.data;
@@ -50,7 +50,7 @@ const userSlice = createSlice({
     },
     logOutUser() {
       localStorage.removeItem("token");
-      return initState.user;
+      return getInitState();
     },
   },
 });

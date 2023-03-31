@@ -1,5 +1,5 @@
-import { CardType } from "../Redux/initialState";
 import { store } from "../Redux/store";
+import { CardType } from "../types/products.interface";
 import axios from "./axios";
 
 export const getProducts = async () => {

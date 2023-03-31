@@ -1,28 +1,11 @@
-import { CardProducts } from "../types/products.interface";
+import { Modal } from "../types/modal.interface";
+import { CardProducts, CardType } from "../types/products.interface";
+import { UserType } from "../types/user.interface";
 import { REDUX_SINK } from "../utils/constants";
 
-export interface CardType {
-  isCheck: boolean;
-  count: number;
-  id: string;
-}
-
-interface UserType {
-  about: string;
-  email: string;
-  token: string;
-  _id: string;
-  name: string;
-  avatar: string;
-  group: string;
-}
 
 export interface InitStateStore {
-  modal: {
-    AuthorizationOpen: boolean;
-    CartOpen: boolean;
-    CardQuickviews: boolean;
-  };
+  modal: Modal;
   user: UserType;
   filter: {
     search: string;
@@ -34,9 +17,9 @@ export interface InitStateStore {
 
 export const initState: InitStateStore = {
   modal: {
-    AuthorizationOpen: false,
-    CartOpen: false,
-    CardQuickviews: false,
+    authorizationOpen: false,
+    cartOpen: false,
+    cardQuickviews: false,
   },
   user: {
     about: "",
