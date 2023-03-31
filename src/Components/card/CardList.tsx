@@ -1,13 +1,22 @@
+import { getFavoritsSum } from "../../Redux/slices/favoritsSlice";
 import { useActions } from "../../hooks/useActions";
 import { CardListProps } from "../../types/products.interface";
 import React from "react";
+import { useSelector } from "react-redux";
 
 export const CardList = ({ products }: CardListProps) => {
-  const { addToCart, changeModalCardQuickviewsState, addProductQuickviews } =
-    useActions();
+  const {
+    addToCart,
+    changeModalCardQuickviewsState,
+    addProductQuickviews,
+    addDelFavoritsProduct,
+  } = useActions();
 
   const handleAddToCart = (id: string) => {
     addToCart({ id });
+  };
+  const handleAddToFavorits = (id: string) => {
+    addDelFavoritsProduct({ id });
   };
 
   return (
@@ -27,7 +36,7 @@ export const CardList = ({ products }: CardListProps) => {
                   className="h-full w-full max-w-[320px] max-h-[320px] min-w-[320px] min-h-[320px] rounded-[20px] object-contain object-center group-hover:opacity-75"
                 />
 
-                <button>
+                <button onClick={() => handleAddToFavorits(product._id)}>
                   <p className="absolute  top-1 right-1 rounded-full px-2 bg-grassIntense">
                     {product.likes.length}
                   </p>

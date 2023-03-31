@@ -6,6 +6,8 @@ import { modalOpenReducer } from "./slices/modalSlice";
 import { productsReducer } from "./slices/poductsSlice";
 import { userReducer } from "./slices/userSlice";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { favoriteReducer } from "./slices/favoritsSlice";
+
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -13,6 +15,7 @@ const rootReducer = combineReducers({
   modal: modalOpenReducer,
   cart: cartReducer,
   products: productsReducer,
+  favorits: favoriteReducer,
 });
 
 export const store = configureStore({

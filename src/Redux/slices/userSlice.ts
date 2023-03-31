@@ -16,14 +16,11 @@ export const registration = createAsyncThunk(
           email: values.email,
           password: values.password,
         });
-        localStorage.setItem("token", responceReg.data.token);
         dispatch(changeModalAuthorizationState(false));
         dispatch(setUser(responceReg.data));
       }
       return responce;
     } catch (error) {
-      console.log(error);
-
       return error;
     }
   }
@@ -33,7 +30,6 @@ export const authorization = createAsyncThunk(
   "authorization",
   async (values: FinishValuesType, { dispatch }) => {
     const responce = await axios.post("signin", values);
-    localStorage.setItem("token", responce.data.token);
     dispatch(changeModalAuthorizationState(false));
     dispatch(setUser(responce.data));
   }

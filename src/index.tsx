@@ -3,6 +3,7 @@ import { Cart } from "./Components/cart/Cart";
 import { store } from "./Redux/store";
 import "./index.css";
 import { NotFound } from "./pages/404";
+import { Favorits } from "./pages/Favorits";
 import { Products } from "./pages/Products";
 import { SignUp } from "./pages/SignUp";
 import { User } from "./pages/User";
@@ -11,7 +12,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,6 +43,10 @@ const router = createBrowserRouter([
         element: <Cart />,
       },
       {
+        path: "favorits",
+        element: <Favorits />,
+      },
+      {
         path: "*",
         element: <NotFound />,
       },
@@ -60,9 +64,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   </React.StrictMode>
 );
 
-
-
-
 // TODO: Стили на модалку авторизации накинуть
 // TODO: Корзина дергается при изменении товаров в ней, я думаю надо оптимизацию прикрутить
 // TODO: В корзине написать логику
@@ -70,7 +71,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 // TODO: Пагинация
 // TODO: Страница избранного
 // TODO: Страница настроек профился
-
 
 // TODO: В апи сделать обработку ошибок, не в каждый запрос, а отдельной функцией, попробовать взять в api.helper
 // TODO: Футер к низу прилепить

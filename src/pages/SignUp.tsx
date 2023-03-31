@@ -18,6 +18,7 @@ export const SignUp = () => {
   const initialValues: FinishValuesType = {
     password: "",
     email: "",
+    group: "",
   };
 
   return (
@@ -33,11 +34,11 @@ export const SignUp = () => {
               <button
                 className="text-grassIntense text-lg"
                 onClick={() => {
-                  changeModalAuthorizationState(false);
-                  navigate("/signup");
+                  changeModalAuthorizationState(true);
+                  navigate("/");
                 }}
               >
-                Зарегистрируйтесь
+                Авторизируйтесь
               </button>
             </p>
           </div>
@@ -59,6 +60,20 @@ export const SignUp = () => {
                 />
               </div>
               <div>
+                <label htmlFor="group" className="sr-only">
+                  Ваша группа
+                </label>
+                <Field
+                  id="group"
+                  name="group"
+                  type="group"
+                  autoComplete="current-group"
+                  required
+                  className="relative block w-full rounded-b-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  placeholder="Группа"
+                />
+              </div>
+              <div>
                 <label htmlFor="password" className="sr-only">
                   Ваш пароль
                 </label>
@@ -72,6 +87,7 @@ export const SignUp = () => {
                   placeholder="Пароль"
                 />
               </div>
+              
             </div>
 
             <div className="flex items-center justify-between">
@@ -111,7 +127,7 @@ export const SignUp = () => {
                     aria-hidden="true"
                   />
                 </span>
-                Войти
+                Зарегистрироваться
               </button>
             </div>
           </Form>

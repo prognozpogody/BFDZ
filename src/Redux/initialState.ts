@@ -1,8 +1,7 @@
 import { Modal } from "../types/modal.interface";
-import { CardProducts, CardType } from "../types/products.interface";
+import { CardProducts, CardType, favorits } from "../types/products.interface";
 import { UserType } from "../types/user.interface";
 import { REDUX_SINK } from "../utils/constants";
-
 
 export interface InitStateStore {
   modal: Modal;
@@ -13,6 +12,7 @@ export interface InitStateStore {
   cart: CardType[];
   score: number;
   products: CardProducts;
+  favorits: favorits[];
 }
 
 export const initState: InitStateStore = {
@@ -57,6 +57,7 @@ export const initState: InitStateStore = {
     count: 0,
     id: "",
   },
+  favorits: [],
 };
 
 export const getInitState = () => {

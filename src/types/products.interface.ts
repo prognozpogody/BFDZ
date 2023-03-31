@@ -30,3 +30,7 @@ export interface CardType {
   count: number;
   id: string;
 }
+
+export interface favorits {
+  id: string;
+}

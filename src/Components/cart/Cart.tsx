@@ -39,7 +39,6 @@ export const Cart: FC = () => {
   });
 
   if (isError) return <p>Error happend: {error.message}</p>;
-  console.log();
 
   return (
     <Transition.Root show={modalCartonOpen} as={Fragment}>

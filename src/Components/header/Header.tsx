@@ -1,5 +1,9 @@
 import { getCartSum } from "../../Redux/slices/cartSlice";
-import { getUserSelector } from "../../Redux/slices/userSlice";
+import { getFavoritsSum } from "../../Redux/slices/favoritsSlice";
+import {
+  getTokenSelector,
+  getUserSelector,
+} from "../../Redux/slices/userSlice";
 import { useActions } from "../../hooks/useActions";
 import { SearchInput } from "../ui/SearchInput";
 import { Menu, Transition } from "@headlessui/react";
@@ -19,7 +23,8 @@ export const HeaderProject = () => {
     useActions();
   const userInfo = useSelector(getUserSelector);
   const productInCart = useSelector(getCartSum);
-  const TOKEN = localStorage.getItem("token");
+  const favoritsSum = useSelector(getFavoritsSum);
+  const TOKEN = useSelector(getTokenSelector);
 
   const handleLogOut = () => {
     logOutUser();
@@ -89,7 +94,7 @@ export const HeaderProject = () => {
           {/* Избранное */}
 
           <div className="relative">
-            <a className="mr-4 flex items-center" href="#!">
+            <a className="mr-4 flex items-center" href="/favorits">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -105,7 +110,7 @@ export const HeaderProject = () => {
                 />
               </svg>
               <span className="absolute -mt-4 ml-7 rounded-full px-2 text-m bg-grassIntense">
-                3
+                {favoritsSum}
               </span>
             </a>
           </div>

@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 export type FinishValuesType = {
   email: string;
   password: string;
+  group?: string,
 };
 
 export const FormAuthorization = () => {

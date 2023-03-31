@@ -6,6 +6,10 @@ import {
   incrementProduct,
   changeCheckProducts,
 } from "./slices/cartSlice";
+import {
+  addDelFavoritsProduct,
+  resetFavoritsInfo,
+} from "./slices/favoritsSlice";
 import { changeSearchFilter } from "./slices/filterSlice";
 import {
   changeModalAuthorizationState,
@@ -21,6 +25,8 @@ import {
 } from "./slices/userSlice";
 
 export const rootActions = {
+  addDelFavoritsProduct,
+  resetFavoritsInfo,
   changeCheckProducts,
   incrementProduct,
   dicrementProduct,
