@@ -8,18 +8,15 @@ import { Fragment } from "react";
 import React from "react";
 import { useSelector } from "react-redux";
 
-
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 export const CardQuickviews = () => {
   const modalCardQuickviews = useSelector(getModalSelectorCardQuickviews);
-  const { changeModalCardQuickviewsState, addToCart } = useActions();
+  const { changeModalCardQuickviewsState, addToCart, addDelFavoritesProduct } =
+    useActions();
   const product = useSelector(getProductQuickviews);
-  const handleAddToCart = (id: string) => {
-    addToCart({ id });
-  };
 
   return (
     <Transition.Root show={modalCardQuickviews} as={Fragment}>
@@ -126,13 +123,22 @@ export const CardQuickviews = () => {
                         <h3 id="options-heading" className="sr-only">
                           Product options
                         </h3>
-
                         <button
                           type="button"
                           className="inline-block rounded bg-primary px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-black shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-                          onClick={() => handleAddToCart(product._id)}
+                          onClick={() => addToCart({ id: product._id })}
                         >
                           В корзину
+                        </button>
+
+                        <button
+                          type="button"
+                          className="inline-block rounded bg-primary ml-[40px] px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-black shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+                          onClick={() =>
+                            addDelFavoritesProduct({ id: product._id })
+                          }
+                        >
+                          В избранное
                         </button>
                       </section>
                     </div>

@@ -20,6 +20,11 @@ export const getProductByID = async (id: string) => {
   return responce.data;
 };
 
+export const getAllProductByID = async (ids: string[]) => {
+  const responce = Promise.all(ids.map((id) => getProductByID(id)));
+  return responce;
+};
+
 export const getProductsInCart = async (productsInCart: CardType[]) => {
   const responce = Promise.all(
     productsInCart.map(async (cartProduct) => {
@@ -34,10 +39,26 @@ export const getProductsInCart = async (productsInCart: CardType[]) => {
   return responce;
 };
 
-export const getSearchProduct = async (values: string) => {
-  return await axios.get(`products/search?query=${values}`, {
+export const getSearchProduct = async (product: string) => {
+  return await axios.get(`products/search?query=${product}`, {
     headers: {
       authorization: "Bearer " + store.getState().user.token,
+    },
+  });
+};
+
+export const setLike = async (id: string) => {
+  await axios.put(`products/likes/${id}`, "", {
+    headers: {
+      Authorization: `Bearer ${store.getState().user.token}`,
+    },
+  });
+};
+
+export const deleteLike = async (id: string) => {
+  await axios.delete(`products/likes/${id}`, {
+    headers: {
+      Authorization: `Bearer ${store.getState().user.token}`,
     },
   });
 };

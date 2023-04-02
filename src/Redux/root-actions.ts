@@ -7,9 +7,9 @@ import {
   changeCheckProducts,
 } from "./slices/cartSlice";
 import {
-  addDelFavoritsProduct,
-  resetFavoritsInfo,
-} from "./slices/favoritsSlice";
+  addDelFavoritesProduct,
+  resetFavoritesInfo,
+} from "./slices/favoritesSlice";
 import { changeSearchFilter } from "./slices/filterSlice";
 import {
   changeModalAuthorizationState,
@@ -25,8 +25,8 @@ import {
 } from "./slices/userSlice";
 
 export const rootActions = {
-  addDelFavoritsProduct,
-  resetFavoritsInfo,
+  addDelFavoritesProduct,
+  resetFavoritesInfo,
   changeCheckProducts,
   incrementProduct,
   dicrementProduct,

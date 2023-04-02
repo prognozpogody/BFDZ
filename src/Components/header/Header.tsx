@@ -1,5 +1,5 @@
 import { getCartSum } from "../../Redux/slices/cartSlice";
-import { getFavoritsSum } from "../../Redux/slices/favoritsSlice";
+import { getFavoritesSum } from "../../Redux/slices/favoritesSlice";
 import {
   getTokenSelector,
   getUserSelector,
@@ -23,7 +23,7 @@ export const HeaderProject = () => {
     useActions();
   const userInfo = useSelector(getUserSelector);
   const productInCart = useSelector(getCartSum);
-  const favoritsSum = useSelector(getFavoritsSum);
+  const favoritsSum = useSelector(getFavoritesSum);
   const TOKEN = useSelector(getTokenSelector);
 
   const handleLogOut = () => {

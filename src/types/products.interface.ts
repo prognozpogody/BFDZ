@@ -31,6 +31,6 @@ export interface CardType {
   id: string;
 }
 
-export interface favorits {
+export interface favorites {
   id: string;
 }
