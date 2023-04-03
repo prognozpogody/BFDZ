@@ -46,7 +46,6 @@ const userSlice = createSlice({
       return state;
     },
     logOutUser() {
-      localStorage.removeItem("token");
       return getInitState();
     },
   },
