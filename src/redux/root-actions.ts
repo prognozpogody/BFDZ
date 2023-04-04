@@ -5,6 +5,7 @@ import {
   removeToCart,
   incrementProduct,
   changeCheckProducts,
+
 } from "./slices/cartSlice";
 import {
   addDelFavoritesProduct,
@@ -25,6 +26,7 @@ import {
 } from "./slices/userSlice";
 
 export const rootActions = {
+
   addDelFavoritesProduct,
   resetFavoritesInfo,
   changeCheckProducts,

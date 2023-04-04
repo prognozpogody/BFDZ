@@ -1,88 +1,16 @@
-import { getProductByID, getProductsInCart } from "../../api/productsApi";
+import { getProductsInCart } from "../../api/productsApi";
 import { useActions } from "../../hooks/useActions";
 import { getCartSelector } from "../../redux/slices/cartSlice";
 import { getModalSelectorCart } from "../../redux/slices/modalSlice";
 import { CardProducts } from "../../types/products.interface";
-import { totalPrice } from "../../utils/functions";
+import { totalPriceOfAll } from "../../utils/functions";
+import { ProductInCart } from "./ProductInCart";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
 import React, { FC } from "react";
 import { Fragment } from "react";
 import { useSelector } from "react-redux";
-
-const ProductInCart = ({ product }: { product: CardProducts }) => {
-  const { removeToCart, incrementProduct, dicrementProduct } = useActions();
-  const productsInCart = useSelector(getCartSelector);
-
-  const productFromCart = productsInCart.find((el) => el.id === product._id);
-
-  return (
-    <li key={product._id} className="flex py-6">
-      <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-        <img
-          src={product.pictures}
-          alt={product.name}
-          className="h-full w-full object-cover object-center"
-        />
-      </div>
-
-      <div className="ml-4 flex flex-col">
-        <div>
-          <div className="flex items-center text-base font-medium text-gray-900">
-            <h3>
-              <a href={product._id}>{product.name}</a>
-            </h3>
-            <button
-              type="button"
-              className="w-10 h-10 font-medium rounded-md border border-transparent bg-primary"
-              onClick={() => {
-                dicrementProduct(product._id);
-              }}
-            >
-              -
-            </button>
-            <p>
-              {totalPrice(
-                productFromCart!.count,
-                product.price,
-                product.discount
-              )}
-              р.
-            </p>
-            <button
-              type="button"
-              disabled={productFromCart!.count === product.stock}
-              className="w-10 h-10 font-medium rounded-md border border-transparent bg-primary"
-              onClick={() => incrementProduct(product._id)}
-            >
-              +
-            </button>
-          </div>
-
-          <p className="mt-1 text-sm text-gray-500">
-            В наличии {product.stock}шт.
-          </p>
-        </div>
-        <div className="flex flex-1 items-end justify-between text-sm">
-          <p className="text-gray-500">Вес {product.wight}</p>
-
-          <div className="flex">
-            <button
-              type="button"
-              className="font-medium text-indigo-600 hover:text-indigo-500"
-              onClick={() => {
-                removeToCart(product);
-              }}
-            >
-              Убрать
-            </button>
-          </div>
-        </div>
-      </div>
-    </li>
-  );
-};
 
 export const Cart: FC = () => {
   const { changeModalCartState, clearCart } = useActions();
@@ -101,12 +29,7 @@ export const Cart: FC = () => {
     },
   });
 
-  let totalPriceOfAll = 0;
-  products.forEach(({ _id, price, discount }) => {
-    const productFromCart = productsInCart.find((el) => el.id === _id);
-    if (productFromCart)
-      totalPriceOfAll += totalPrice(productFromCart.count, price, discount);
-  });
+  const totalPrice = totalPriceOfAll(products, productsInCart);
 
   if (isError) return <p>Error happend: {error.message}</p>;
 
@@ -179,7 +102,7 @@ export const Cart: FC = () => {
                     <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Итого</p>
-                        <p>{totalPriceOfAll}</p>
+                        <p>{totalPrice}</p>
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">
                         Оформить заказ
