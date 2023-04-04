@@ -1,9 +1,8 @@
-
-import { Spinner } from "../Components/ui/spinner/Spinner";
-import { getSearchSelector } from "../Redux/slices/filterSlice";
-import { getUserIdSelector } from "../Redux/slices/userSlice";
 import { deleteLike, getSearchProduct, setLike } from "../api/productsApi";
+import { Spinner } from "../components/ui/spinner/Spinner";
 import { useActions } from "../hooks/useActions";
+import { getSearchSelector } from "../redux/slices/filterSlice";
+import { getUserIdSelector } from "../redux/slices/userSlice";
 import { CardProducts } from "../types/products.interface";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
@@ -11,6 +10,8 @@ import { useSelector } from "react-redux";
 
 export const Products = () => {
   const searchState = useSelector(getSearchSelector);
+  const USERID = useSelector(getUserIdSelector);
+
   const {
     data: products,
     isLoading,
@@ -31,15 +32,12 @@ export const Products = () => {
     addDelFavoritesProduct,
   } = useActions();
 
-  const USERID = useSelector(getUserIdSelector);
-
-  const handleLike = (product: CardProducts) => {
+  const handleLike = async (product: CardProducts) => {
     product.likes.includes(USERID)
-      ? deleteLike(product._id)
-      : setLike(product._id);
-    setTimeout(() => {
-      refetch();
-    }, 50);
+      ? await deleteLike(product._id)
+      : await setLike(product._id);
+
+    refetch();
   };
 
   if (isLoading) return <Spinner />;
@@ -48,8 +46,8 @@ export const Products = () => {
     <div className=" mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
       <div className=" grid grid-cols-1 gap-y-5 gap-x-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
         {products.data.map((product: CardProducts) => (
-          <div>
-            <div key={product._id} className="group">
+          <div key={product._id}>
+            <div className="group">
               <div className=" relative flex justify-center max-h-xs max-w-xs aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
                 <img
                   src={product.pictures}

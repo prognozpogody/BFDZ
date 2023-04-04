@@ -1,5 +1,5 @@
-import { FinishValuesType } from "../../Components/formAuthorization/FormAuthorization.js";
 import axios from "../../api/axios";
+import { FinishValuesType } from "../../components/FormAuthorization/FormAuthorization.js";
 import { UserType } from "../../types/user.interface.js";
 import { getInitState, InitStateStore } from "../initialState";
 import { changeModalAuthorizationState } from "./modalSlice";

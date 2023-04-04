@@ -1,10 +1,10 @@
-import { getCartSum } from "../../Redux/slices/cartSlice";
-import { getFavoritesSum } from "../../Redux/slices/favoritesSlice";
+import { useActions } from "../../hooks/useActions";
+import { getCartSum } from "../../redux/slices/cartSlice";
+import { getFavoritesSum } from "../../redux/slices/favoritesSlice";
 import {
   getTokenSelector,
   getUserSelector,
-} from "../../Redux/slices/userSlice";
-import { useActions } from "../../hooks/useActions";
+} from "../../redux/slices/userSlice";
 import { SearchInput } from "../ui/SearchInput";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment, useEffect } from "react";

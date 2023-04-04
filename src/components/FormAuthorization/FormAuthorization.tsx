@@ -1,5 +1,5 @@
-import { getModalSelectorAuthorization } from "../../Redux/slices/modalSlice";
 import { useActions } from "../../hooks/useActions";
+import { getModalSelectorAuthorization } from "../../redux/slices/modalSlice";
 import { Dialog, Transition } from "@headlessui/react";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { Formik, Form, Field } from "formik";
@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 export type FinishValuesType = {
   email: string;
   password: string;
-  group?: string,
+  group?: string;
 };
 
 export const FormAuthorization = () => {

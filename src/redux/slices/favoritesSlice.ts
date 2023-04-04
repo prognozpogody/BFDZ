@@ -2,7 +2,6 @@ import { favorites } from "../../types/products.interface";
 import { getInitState, InitStateStore } from "../initialState";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-
 const favoritesSlice = createSlice({
   name: "favorites",
   initialState: getInitState().favorites as favorites[],
@@ -18,7 +17,7 @@ const favoritesSlice = createSlice({
       }
     },
     resetFavoritesInfo() {
-      return getInitState();
+      return getInitState().favorites;
     },
   },
 });

@@ -1,20 +1,33 @@
-import { getFavoritesSelector } from "../Redux/slices/favoritesSlice";
 import { getAllProductByID } from "../api/productsApi";
 import { useActions } from "../hooks/useActions";
+import { getFavoritesSelector } from "../redux/slices/favoritesSlice";
 import { CardProducts } from "../types/products.interface";
 import { XMarkIcon, StarIcon } from "@heroicons/react/20/solid";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useSelector } from "react-redux";
 
+const Rating = ({ count }: { count: number }) => {
+  return (
+    <div className="flex items-center">
+      {Array(5)
+        .fill(0)
+        .map((_, index) => (
+          <StarIcon
+            key={index}
+            fill={index + 1 < count ? "red" : "black"}
+            className={"h-5 w-5 flex-shrink-0"}
+            aria-hidden="true"
+          />
+        ))}
+    </div>
+  );
+};
+
 export const Favorits = () => {
   const { addDelFavoritesProduct, addToCart } = useActions();
   const productsInFavorites = useSelector(getFavoritesSelector);
   const idFavorites = productsInFavorites.map((value) => value.id);
-
-  function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(" ");
-  }
 
   const {
     data: products,
@@ -33,7 +46,10 @@ export const Favorits = () => {
     <>
       {products?.length !== 0 ? (
         products?.map((product) => (
-          <div className="relative flex w-full items-center overflow-hidden bg-white px-4 pt-14 pb-8 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
+          <div
+            key={product._id}
+            className="relative flex w-full items-center overflow-hidden bg-white px-4 pt-14 pb-8 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8"
+          >
             <button
               type="button"
               className="absolute top-4 right-4 text-gray-400 hover:text-gray-500 sm:top-8 sm:right-6 md:top-6 md:right-6 lg:top-8 lg:right-8"
@@ -69,20 +85,7 @@ export const Favorits = () => {
                   <div className="mt-6">
                     <h4 className="sr-only">Reviews</h4>
                     <div className="flex items-center">
-                      <div className="flex items-center">
-                        {[0, 1, 2, 3, 4].map((rating) => (
-                          <StarIcon
-                            key={rating}
-                            className={classNames(
-                              product.likes.length > rating
-                                ? "text-gray-900"
-                                : "text-gray-200",
-                              "h-5 w-5 flex-shrink-0"
-                            )}
-                            aria-hidden="true"
-                          />
-                        ))}
-                      </div>
+                      <Rating count={3} />
                       <p className="sr-only">
                         {product.likes.length} out of 5 stars
                       </p>

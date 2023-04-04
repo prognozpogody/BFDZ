@@ -1,12 +1,12 @@
 import { App } from "./App";
-import { Cart } from "./Components/cart/Cart";
-import { store } from "./Redux/store";
+import { Cart } from "./components/Cart/Cart";
 import "./index.css";
 import { NotFound } from "./pages/404";
 import { Favorits } from "./pages/Favorits";
 import { Products } from "./pages/Products";
 import { SignUp } from "./pages/SignUp";
 import { User } from "./pages/User";
+import { store } from "./redux/store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -74,4 +74,3 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 // TODO: Модалка добавления товара
 // TODO: Сортировку сделать, продукты, избранное и корзина
 // TODO: хедер под мобилку поправить,
-

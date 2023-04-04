@@ -16,6 +16,6 @@
     "**/*.tsx",
     "src/api/api.helper.ts",
     "src/hooks/useActions.tsx"
-, "src/Redux/slices/cartSlice.ts"  ],
+, "src/redux/slices/cartSlice.ts"  ],
   "exclude": ["node_modules"]
 }

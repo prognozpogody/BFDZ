@@ -8,7 +8,7 @@ export const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action: PayloadAction<{ id: string }>) => {
       const productInCart = state.find(
-        (product: CardType) => product.id === action.payload.id
+        (product) => product.id === action.payload.id
       );
       if (productInCart) {
         productInCart.count++;
@@ -23,13 +23,14 @@ export const cartSlice = createSlice({
     },
 
     clearCart() {
-      return getInitState();
+      return getInitState().cart;
     },
 
     changeCheckProducts(state, action) {
       if (action.payload in state) {
         state[action.payload].isCheck = !state[action.payload].isCheck;
       }
+
       return state;
     },
 

@@ -1,6 +1,6 @@
-import { FinishValuesType } from "../Components/formAuthorization/FormAuthorization";
-import { changeModalAuthorizationState } from "../Redux/slices/modalSlice";
+import { FinishValuesType } from "../components/FormAuthorization/FormAuthorization";
 import { useActions } from "../hooks/useActions";
+import { changeModalAuthorizationState } from "../redux/slices/modalSlice";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { Formik, Field, Form } from "formik";
 import React from "react";
@@ -87,7 +87,6 @@ export const SignUp = () => {
                   placeholder="Пароль"
                 />
               </div>
-              
             </div>
 
             <div className="flex items-center justify-between">

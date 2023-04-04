@@ -1,4 +1,4 @@
-import { getUserSelector } from "../Redux/slices/userSlice";
+import { getUserSelector } from "../redux/slices/userSlice";
 import React from "react";
 import { useSelector } from "react-redux";
 

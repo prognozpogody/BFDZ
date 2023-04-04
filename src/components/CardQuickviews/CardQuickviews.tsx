@@ -1,6 +1,6 @@
-import { getModalSelectorCardQuickviews } from "../../Redux/slices/modalSlice";
-import { getProductQuickviews } from "../../Redux/slices/poductsSlice";
 import { useActions } from "../../hooks/useActions";
+import { getModalSelectorCardQuickviews } from "../../redux/slices/modalSlice";
+import { getProductQuickviews } from "../../redux/slices/poductsSlice";
 import { Transition, Dialog } from "@headlessui/react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { XMarkIcon } from "@heroicons/react/24/outline";

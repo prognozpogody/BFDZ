@@ -1,4 +1,4 @@
-import { store } from "../Redux/store";
+import { store } from "../redux/store";
 import { CardType } from "../types/products.interface";
 import axios from "./axios";
 
@@ -28,12 +28,7 @@ export const getAllProductByID = async (ids: string[]) => {
 export const getProductsInCart = async (productsInCart: CardType[]) => {
   const responce = Promise.all(
     productsInCart.map(async (cartProduct) => {
-      const product = await getProductByID(cartProduct.id);
-      return {
-        ...product,
-        isChecked: cartProduct.isCheck,
-        count: cartProduct.count,
-      };
+      return await getProductByID(cartProduct.id);
     })
   );
   return responce;
