@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 
+
 export const Products = () => {
   const { search, sort } = useSelector((state: InitStateStore) => state.filter);
   const userID = useSelector(getUserIdSelector);
@@ -17,8 +18,8 @@ export const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [sortValue, setSortValue] = useState(() => {
     const firstSort = searchParams.get("sort");
-
-    return firstSort ? firstSort : "";
+    if (firstSort) return firstSort;
+    changeSort("");
   });
 
   const {
@@ -76,13 +77,13 @@ export const Products = () => {
         aria-label="Default select example"
         onChange={(event) => handleChangeSort(event)}
       >
+        <option value={""}>Без сортировки</option>
         <option value="priceSortUp">По цене ↓</option>
         <option value="priceSortDown">По цене ↑</option>
         <option value="discountSortUp">По скидке ↓</option>
         <option value="discountSortDown">По скидке ↑</option>
         <option value=" likeSortUp">По лайкам ↓</option>
         <option value="likeSortDown">По лайкам ↑</option>
-        <option value={""}>Без сортировки</option>
       </select>
       <div className=" mx-auto max-w-2xl py-3 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className=" grid grid-cols-1 gap-y-5 gap-x-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
