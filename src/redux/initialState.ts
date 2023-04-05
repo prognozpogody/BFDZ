@@ -8,9 +8,9 @@ export interface InitStateStore {
   user: UserType;
   filter: {
     search: string;
+    sort: string;
   };
   cart: CardType[];
-  score: number;
   products: CardProducts;
   favorites: favorites[];
 }
@@ -32,9 +32,9 @@ export const initState: InitStateStore = {
   },
   filter: {
     search: "",
+    sort: "",
   },
   cart: [],
-  score: 2,
   products: {
     name: "",
     _id: "",

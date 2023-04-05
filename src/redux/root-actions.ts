@@ -5,13 +5,12 @@ import {
   removeToCart,
   incrementProduct,
   changeCheckProducts,
-
 } from "./slices/cartSlice";
 import {
   addDelFavoritesProduct,
   resetFavoritesInfo,
 } from "./slices/favoritesSlice";
-import { changeSearchFilter } from "./slices/filterSlice";
+import { changeSearchFilter, changeSort } from "./slices/filterSlice";
 import {
   changeModalAuthorizationState,
   changeModalCartState,
@@ -26,7 +25,7 @@ import {
 } from "./slices/userSlice";
 
 export const rootActions = {
-
+  changeSort,
   addDelFavoritesProduct,
   resetFavoritesInfo,
   changeCheckProducts,
